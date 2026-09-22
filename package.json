@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "build:texturas": "node scripts/build-texturas.mjs",
-    "build": "npm run build:texturas",
+    "build": "npm run build:texturas && npm run build:vite",
     "build:vite": "vite build && node -e \"import('fs').then(fs=>{try{fs.rmSync('dist/public',{recursive:true,force:true})}catch(e){}})\"",
     "dev": "vite --host",
     "preview": "vite preview",

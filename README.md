@@ -96,13 +96,21 @@ const sala = defineAmbiente({
 - ESLint + Prettier (`.eslintrc.cjs`, `.prettierrc`)
 - `jsconfig.json` para tipos JSDoc
 - CI: `.github/workflows/ci.yml` — lint + test + build + Lighthouse
-- Coverage gate via `vitest --coverage`
+- Coverage: `npm run test:coverage` — gate atual 33% linhas / 55% branches (`vite.config.js:28`), 52 testes. Meta progressiva 45% → 60% → 70% (unidade + E2E para `compositor/ui/main`)
 
-## Deploy
+## Deploy — Azure Static Web Apps
 
-- **Static:** `npm run build:vite` -> `dist/` (servir com SPA fallback)
+1. Crie um Static Web App no portal Azure (ou `az staticwebapp create`).
+2. Copie o **Deployment Token** em `Visão geral -> Gerenciar token de implantação`.
+3. No GitHub: `Settings -> Secrets -> New repository secret` nome `AZURE_STATIC_WEB_APPS_API_TOKEN` com o token.
+4. Push em `main` dispara `.github/workflows/deploy.yml:1` — `dist` sobe via `Azure/static-web-apps-deploy@v1`.
+5. Sem token, o workflow só publica `dist` como artifact (fallback).
+
+Config SPA: `staticwebapp.config.json:1` (fallback `/index.html`, cache `assets/* immutable`, headers `CSP`).
+
+- **Static puro:** `npm run build:vite` -> `dist/` (servir com SPA fallback)
 - **Docker:** `docker build -t simulador . && docker run -p 8080:80 simulador` (nginx + SPA fallback + cache headers)
-- **Azure Static Web Apps / Vercel / Netlify:** `output: dist`, `build: npm run build:vite`
+- **Vercel / Netlify:** `output: dist`, `build: npm run build:vite`
 
 ## Segurança
 

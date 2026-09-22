@@ -31,7 +31,9 @@ export default defineConfig({
       exclude: ['public/js/config/texturas.js', 'public/sw.js'],
       reportsDirectory: 'coverage',
       reporter: ['text', 'html', 'lcov'],
-      thresholds: { lines: 30, functions: 30, branches: 30 },
+      // Gate progressivo: 33% atual (52 testes). Próximas metas: 45% -> 60% -> 70%
+      // Arquivos pesados (main/ui/compositor) cobertos via E2E; unidade foca em lógica.
+      thresholds: { lines: 33, functions: 33, branches: 55 },
     },
   },
 });

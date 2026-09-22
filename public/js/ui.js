@@ -9,16 +9,15 @@ import { CATALOGO } from './loader.js';
 import { GRUPOS } from './config.js';
 import { diagPush } from './diag.js';
 
-// Categorias no padrão visual do visualizador Berneck: cor, ícone e chave
-// usadas nos chips (data-key) e na borda lateral dos cards de textura.
+// Categorias premium — ícones modernos (FontAwesome 6.5 linha fina)
 const CAT_UI = {
-  Todas: { key: 'todos', icon: 'fa-border-all' },
-  Amadeirados: { key: 'madeirados', icon: 'fa-tree' },
-  Unicolor: { key: 'unicolor', icon: 'fa-palette' },
+  Todas: { key: 'todos', icon: 'fa-table-cells-large' },
+  Amadeirados: { key: 'madeirados', icon: 'fa-leaf' },
+  Unicolor: { key: 'unicolor', icon: 'fa-droplet' },
   'Unicolor Especial': { key: 'unicolor_especial', icon: 'fa-wand-magic-sparkles' },
-  Metalizados: { key: 'metalizados', icon: 'fa-bolt' },
-  Pedras: { key: 'fantasia', icon: 'fa-mountain' },
-  Tecido: { key: 'fantasia', icon: 'fa-scroll' },
+  Metalizados: { key: 'metalizados', icon: 'fa-gem' },
+  Pedras: { key: 'fantasia', icon: 'fa-cubes' },
+  Tecido: { key: 'fantasia', icon: 'fa-shirt' },
 };
 const catKey = label => (CAT_UI[label] || CAT_UI['Todas']).key;
 const catIcon = label => (CAT_UI[label] || CAT_UI['Todas']).icon;
@@ -56,6 +55,11 @@ export class UI {
     container.innerHTML = `
       <div class="sheet-handle" aria-hidden="true"></div>
       <img class="drawer-logo" src="assets/images/logo.svg" alt="Simulador de Ambientes">
+      <div class="drawer-premium-head">
+        <span class="drawer-kicker"><i class="fa-solid fa-sparkles"></i> Coleção Premium</span>
+        <h2 class="drawer-title">Texturas Berneck</h2>
+        <p class="drawer-sub">Toque nos pontos pulsantes para explorar</p>
+      </div>
       <div class="drawer-search">
         <span class="search-ico" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
         <input id="buscaTex" type="search" placeholder="Buscar padrão..." autocomplete="off" aria-label="Buscar textura">

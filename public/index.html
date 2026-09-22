@@ -34,6 +34,14 @@
     />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <script>
+      try {
+        const k = 'simulador_tema';
+        const s = localStorage.getItem(k);
+        const t = s || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (_) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -73,6 +81,9 @@
     <div id="app">
       <main id="palco">
         <header id="topbar">
+          <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema claro/escuro" type="button">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          </button>
           <button
             id="hamburger"
             class="hamburger aberto"

@@ -18,6 +18,39 @@ import { textoHashComposicao, aplicarHashComposicao } from './hash.js';
 const IS_DEV =
   typeof location !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
 
+// Tema premium light/dark — persiste e respeita sistema
+const TEMA_KEY = 'simulador_tema';
+function temaPreferido() {
+  try {
+    const salvo = localStorage.getItem(TEMA_KEY);
+    if (salvo === 'light' || salvo === 'dark') return salvo;
+  } catch (_) {}
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+function aplicarTema(tema) {
+  const t = tema === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', t === 'dark' ? '#0d1210' : '#1B5244');
+  const btn = document.querySelector('#themeToggle');
+  if (btn) {
+    btn.setAttribute('aria-label', t === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro');
+    const ic = btn.querySelector('i');
+    if (ic) ic.className = t === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  }
+  try {
+    localStorage.setItem(TEMA_KEY, t);
+  } catch (_) {}
+}
+aplicarTema(temaPreferido());
+if (window.matchMedia) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    try {
+      if (!localStorage.getItem(TEMA_KEY)) aplicarTema(e.matches ? 'dark' : 'light');
+    } catch (_) {}
+  });
+}
+
 // PWA: registra o Service Worker (instalável + cache). Falha silenciosa
 // fora de contexto seguro (ex. file://) ou sem suporte.
 if ('serviceWorker' in navigator) {
@@ -258,6 +291,17 @@ async function init() {
     ui.setAberto(true);
   };
 
+  // Tema toggle
+  const themeBtn = document.querySelector('#themeToggle');
+  if (themeBtn) {
+    const cur = document.documentElement.getAttribute('data-theme') || 'light';
+    const ic = themeBtn.querySelector('i');
+    if (ic) ic.className = cur === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    themeBtn.addEventListener('click', () => {
+      const atual = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      aplicarTema(atual === 'dark' ? 'light' : 'dark');
+    });
+  }
   // Hamburger
   const burger = document.querySelector('#hamburger');
   burger.addEventListener('click', () => ui.alternar());

@@ -55,11 +55,6 @@ export class UI {
     container.innerHTML = `
       <div class="sheet-handle" aria-hidden="true"></div>
       <img class="drawer-logo" src="assets/images/logo.svg" alt="Simulador de Ambientes">
-      <div class="drawer-premium-head">
-        <span class="drawer-kicker"><i class="fa-solid fa-sparkles"></i> Coleção Premium</span>
-        <h2 class="drawer-title">Texturas Berneck</h2>
-        <p class="drawer-sub">Toque nos pontos pulsantes para explorar</p>
-      </div>
       <div class="drawer-search">
         <span class="search-ico" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
         <input id="buscaTex" type="search" placeholder="Buscar padrão..." autocomplete="off" aria-label="Buscar textura">

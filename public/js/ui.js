@@ -90,14 +90,33 @@ export class UI {
       this.busca = this.buscaEl.value.trim().toLowerCase();
       this._buildGrade();
     });
-    // setas — idêntico ao referência (120px fixo, como estava antes e funcionando)
+    // Setas premium: navegam entre categorias e selecionam automaticamente.
     const SCROLL_CHIPS = 120;
-    container
-      .querySelector('#catLeft')
-      .addEventListener('click', () => this.chipsBar.scrollBy({ left: -SCROLL_CHIPS, behavior: 'smooth' }));
-    container
-      .querySelector('#catRight')
-      .addEventListener('click', () => this.chipsBar.scrollBy({ left: SCROLL_CHIPS, behavior: 'smooth' }));
+    const _catsOrdenadas = () => [...this.chipsBar.querySelectorAll('[data-cat]')].map(b => b.dataset.cat);
+    const _catAtualIdx = () => {
+      const cats = _catsOrdenadas();
+      const idx = this.listaEspecial === 'favs' ? -1 : cats.indexOf(this.filtro);
+      return { cats, idx };
+    };
+    const _navegarCat = delta => {
+      const { cats, idx } = _catAtualIdx();
+      if (!cats.length) return;
+      const base = idx === -1 ? (delta > 0 ? -1 : 0) : idx;
+      const novo = Math.max(0, Math.min(cats.length - 1, base + delta));
+      const cat = cats[novo];
+      if (cat === this.filtro && this.listaEspecial !== 'favs') {
+        // já está na categoria: só garante scroll centralizado
+        this._rolarChipAtivo();
+        return;
+      }
+      this.setFiltro(cat);
+      // seleciona o primeiro item da categoria automaticamente
+      const primeiro = this.gradeEl && this.gradeEl.querySelector('.item');
+      if (primeiro) this._aplicarPrimeiroItem(primeiro.dataset.id);
+    };
+    container.querySelector('#catLeft').addEventListener('click', () => _navegarCat(-1));
+    container.querySelector('#catRight').addEventListener('click', () => _navegarCat(1));
+    void SCROLL_CHIPS;
     this.chipsBar.addEventListener('scroll', () => this._atualizarSetas(), { passive: true });
     window.addEventListener('resize', () => this._atualizarSetas());
     setTimeout(() => this._atualizarSetas(), 150);
@@ -426,6 +445,26 @@ export class UI {
     });
   }
 
+  // Aplica a textura do primeiro item sem fechar o drawer (usado pelas setas).
+  async _aplicarPrimeiroItem(texId) {
+    if (!texId) return;
+    if (this._aplicando) {
+      this._pendente = texId;
+      return;
+    }
+    this._aplicando = true;
+    try {
+      let id = texId;
+      while (id) {
+        this._pendente = null;
+        await this._aplicarUm(id, { manterAberto: true });
+        id = this._pendente;
+      }
+    } finally {
+      this._aplicando = false;
+    }
+  }
+
   // Último toque vence: se chegar um toque no meio de uma troca, ele
   // entra na fila (só o mais recente) em vez de ser descartado — por
   // isso toques rápidos nunca "morrem" nem travam o menu.
@@ -449,7 +488,7 @@ export class UI {
     }
   }
 
-  async _aplicarUm(texId) {
+  async _aplicarUm(texId, { manterAberto = false } = {}) {
     // Re-localiza o botão (a grade pode ter sido reconstruída no meio).
     const el = this.gradeEl.querySelector(`.item[data-id="${texId}"]`);
     if (el) el.classList.add('carregando');
@@ -487,7 +526,7 @@ export class UI {
         const acab = atual?.querySelector('.item-acabamento')?.textContent?.trim() || null;
         this.toast(`Aplicado: ${nome}`, 'ok', thumb, acab);
         // Sai da tela após escolher — reabre pelo hamburger/hotspot.
-        this.setAberto(false);
+        if (!manterAberto) this.setAberto(false);
       }
     } catch (_) {
       diagPush({ ev: 'swap-fail', tex: texId, ms: -1 });

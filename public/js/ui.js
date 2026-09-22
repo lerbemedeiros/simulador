@@ -606,7 +606,7 @@ export class UI {
     const norm = String(tipo || 'ok').toLowerCase();
     const isErro = norm === 'erro' || norm === 'error' || norm === 'danger';
     const isInfo = norm === 'info' || norm === 'aviso' || norm === 'warning';
-    const tipoCls = isErro ? 'erro' : isInfo ? 'info' : 'ok';
+    void (isErro ? 'erro' : isInfo ? 'info' : 'ok');
 
     const pickIcon = () => {
       if (isErro) return 'fa-triangle-exclamation';

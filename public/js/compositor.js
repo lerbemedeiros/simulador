@@ -373,16 +373,15 @@ export class Compositor {
         const imgH = imgTextura.naturalHeight || imgTextura.height;
         // Lado longo da bbox ↔ 2750, lado curto ↔ 1850 (orientação automática)
         const bboxLongo = Math.max(bb.w, bb.h);
-        const bboxCurto = Math.min(bb.w, bb.h);
+        void Math.min(bb.w, bb.h);
         const chapaLongo = Math.max(chapaW, chapaH);
-        const chapaCurto = Math.min(chapaW, chapaH);
+        void Math.min(chapaW, chapaH);
         // Usa o lado longo para derivar escala (preserva aspecto, tiling isotrópico)
         // 1px textura = rep/img px em mm → escala para que rep mm = bboxLongo/chapaLongo px
         const escalaFisica = ((bboxLongo / chapaLongo) * rep) / Math.max(imgW, imgH);
         // Alternativa por altura se quiser: bboxCurto/chapaCurto deve dar mesmo valor (chapa 1850/2750 = 0.672, bbox deve bater)
         escala *= escalaFisica;
       } else if (zona.alturaChapa || this.env.cfg.chapaAltura) {
-        const alturaChapa = zona.alturaChapa || this.env.cfg.chapaAltura;
         const h = imgTextura.naturalHeight || imgTextura.height;
         if (h) escala *= bb.h / h;
       }

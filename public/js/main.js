@@ -6,20 +6,14 @@
 // - Hotspots pulsantes no lugar do highlight azul.
 // - Drawer recolhe ao aplicar; hamburger/hotspot reabre.
 // ============================================================
-import {
-  AMBIENTES,
-  BASE_URL,
-  AMBIENTES_DISPONIVEIS,
-  AMBIENTE_ATUAL,
-  resolverAmbienteAtual,
-} from './config.js';
+import { AMBIENTES, BASE_URL, AMBIENTES_DISPONIVEIS, resolverAmbienteAtual } from './config.js';
 import { carregarAmbiente, carregarCatalogo, ensureTextura, preloadTexturas, loadImage } from './loader.js';
 import { diagPush } from './diag.js';
 import { Compositor } from './compositor.js';
 import { Interaction, ZONA_TODAS } from './interaction.js';
 import { UI } from './ui.js';
 import { iniciarTour } from './tour.js';
-import { lerHashComposicao, textoHashComposicao, aplicarHashComposicao, HASH_VERSION } from './hash.js';
+import { textoHashComposicao, aplicarHashComposicao } from './hash.js';
 
 const IS_DEV =
   typeof location !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
@@ -109,7 +103,7 @@ function _aplicarHouse(pct) {
   if (hasPlant) {
     const fg = document.getElementById('furnGold');
     if (fg) fg.style.opacity = v > 0.86 ? String(Math.min(1, (v - 0.86) / 0.14)) : '0';
-    const pctDark = document.querySelector('.house-percent.pct-dark');
+    void document.querySelector('.house-percent.pct-dark');
     // planta tem fundo branco central, manter branco no início, dourado ao final
     if (pctEl) pctEl.classList.toggle('pct-dark', v < 0.28);
   }
@@ -139,8 +133,8 @@ function progresso(msg, pct, subMsg) {
 // API pública p/ preloader de atividades (qualquer módulo pode usar)
 if (typeof window !== 'undefined') window.__houseProgresso = progresso;
 
-// Sugestões prontas: combinações curadas aplicadas com 1 toque.
-const PRESETS = [
+// Sugestões prontas: combinações curadas aplicadas com 1 toque. (reservado para feature futura)
+const _PRESETS = [
   {
     nome: 'Contraste Preto',
     icone: '◨',
@@ -437,8 +431,8 @@ async function init() {
     ui.toast('Alteração desfeita', 'ok');
   }
 
-  // ---- Reset por peça / geral ----
-  async function resetarZona(zid) {
+  // ---- Reset por peça / geral ---- (reservado para UI por peça)
+  async function _resetarZona(zid) {
     const padrao = env.cfg.padraoZona[zid];
     if (!padrao) return;
     const foto = tirarFoto();

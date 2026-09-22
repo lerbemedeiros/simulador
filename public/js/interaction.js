@@ -185,7 +185,7 @@ export class Interaction {
   // Quarto: rótulos por zona (nome da textura aplicada em cada peça)
   definirRotulosPorZona(mapa) {
     this._rotulosPorZona = mapa;
-    for (const [zonaId, { nome, linha }] of Object.entries(mapa)) {
+    for (const [zonaId, { nome, linha: _linha }] of Object.entries(mapa)) {
       const btn = this._botoes.get(zonaId);
       if (!btn) continue;
       const visivel = nome && nome !== '—' ? nome : btn.dataset.zona;

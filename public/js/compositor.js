@@ -556,12 +556,12 @@ export class Compositor {
     overlay.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:8;pointer-events:none;';
     overlay.getContext('2d').drawImage(antigo, 0, 0, this.W, this.H);
     this.canvas.parentElement.appendChild(overlay);
-    // força reflow + anima opacidade do frame antigo até revelar o novo (1s)
+    // força reflow + anima opacidade do frame antigo até revelar o novo (2s)
     requestAnimationFrame(() => {
-      overlay.style.transition = 'opacity 1000ms var(--ease-out, ease)';
+      overlay.style.transition = 'opacity 2000ms var(--ease-out, ease)';
       overlay.style.opacity = '0';
     });
-    setTimeout(() => overlay.remove(), 1100);
+    setTimeout(() => overlay.remove(), 2150);
   }
 
   // Troca UMA textura com garantia de imagem carregada (via diffuse

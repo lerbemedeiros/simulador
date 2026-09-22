@@ -69,7 +69,7 @@ html {
     color 0.35s var(--ease);
 }
 body,
-#panel,
+#painel,
 #dock,
 .item,
 .acabamento-btn,
@@ -90,12 +90,12 @@ body,
   border-color: #1e2623;
   border-top-color: var(--primary);
 }
-[data-theme='dark'] #panel {
-  background: var(--panel);
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+[data-theme='dark'] #painel {
+  background: #1a2120;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
 }
-[data-theme='dark'] #panel::before {
+[data-theme='dark'] #painel::before {
   opacity: 0.6;
 }
 [data-theme='dark'] .drawer-search input {

@@ -32,9 +32,12 @@ function aplicarTema(tema) {
   document.documentElement.setAttribute('data-theme', t);
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute('content', t === 'dark' ? '#0d1210' : '#1B5244');
-  const btn = document.querySelector('#themeToggle');
-  if (btn) {
+  for (const sel of ['#themeToggle', '#dockTheme']) {
+    const btn = document.querySelector(sel);
+    if (!btn) continue;
+    const isDock = sel === '#dockTheme';
     btn.setAttribute('aria-label', t === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro');
+    if (isDock) btn.setAttribute('data-tooltip', t === 'dark' ? 'Tema claro' : 'Tema escuro');
     const ic = btn.querySelector('i');
     if (ic) ic.className = t === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
   }
@@ -291,9 +294,10 @@ async function init() {
     ui.setAberto(true);
   };
 
-  // Tema toggle
-  const themeBtn = document.querySelector('#themeToggle');
-  if (themeBtn) {
+  // Tema toggle — agora no dock esquerdo (dockTheme)
+  for (const sel of ['#themeToggle', '#dockTheme']) {
+    const themeBtn = document.querySelector(sel);
+    if (!themeBtn) continue;
     const cur = document.documentElement.getAttribute('data-theme') || 'light';
     const ic = themeBtn.querySelector('i');
     if (ic) ic.className = cur === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';

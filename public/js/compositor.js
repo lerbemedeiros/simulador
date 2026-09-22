@@ -502,6 +502,7 @@ export class Compositor {
       return;
     }
     this._rendering = true;
+    this._capturarFrameAntigo();
     try {
       this.renderizarAmbiente(this._bctx, this.env.cfg, this.texturas, {
         base: this.env.base,
@@ -512,6 +513,7 @@ export class Compositor {
       this.ctx.globalCompositeOperation = 'source-over';
       this.ctx.clearRect(0, 0, this.W, this.H);
       this.ctx.drawImage(this._back, 0, 0);
+      this._crossfade();
     } finally {
       this._rendering = false;
       if (this._renderPendente) {
@@ -519,6 +521,47 @@ export class Compositor {
         this.renderizar();
       }
     }
+  }
+
+  // Guarda uma cópia do frame atual ANTES de re-renderizar (base p/ crossfade).
+  _capturarFrameAntigo() {
+    if (!this._fadeAntigo) this._fadeAntigo = null;
+    if (this.canvas && this.canvas.width) {
+      try {
+        const snap = document.createElement('canvas');
+        snap.width = this.W;
+        snap.height = this.H;
+        snap.getContext('2d').drawImage(this.canvas, 0, 0, this.W, this.H);
+        this._fadeAntigo = snap;
+      } catch (_) {
+        this._fadeAntigo = null;
+      }
+    }
+  }
+
+  // Crossfade premium: overlay com o frame antigo em cima do novo,
+  // anima 1 -> 0 revelando a textura nova suavemente (~300ms).
+  // Funciona em todas as cenas; respeita prefers-reduced-motion.
+  _crossfade() {
+    const antigo = this._fadeAntigo;
+    this._fadeAntigo = null;
+    if (!antigo || !this.canvas || !this.canvas.parentElement) return;
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    } catch (_) {}
+    const overlay = document.createElement('canvas');
+    overlay.width = this.W;
+    overlay.height = this.H;
+    overlay.className = 'cena-fade';
+    overlay.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:8;pointer-events:none;';
+    overlay.getContext('2d').drawImage(antigo, 0, 0, this.W, this.H);
+    this.canvas.parentElement.appendChild(overlay);
+    // força reflow + anima opacidade do frame antigo até revelar o novo
+    requestAnimationFrame(() => {
+      overlay.style.transition = 'opacity 300ms var(--ease-out, ease)';
+      overlay.style.opacity = '0';
+    });
+    setTimeout(() => overlay.remove(), 380);
   }
 
   // Troca UMA textura com garantia de imagem carregada (via diffuse
@@ -586,6 +629,7 @@ export class Compositor {
     }
     const texId = this.texturas[zonaId];
     if (!texId || !this._getTexture(texId)) return;
+    this._capturarFrameAntigo();
     const imgMascara = this._gerarMascara(zona);
     const bb = this._bbox.get(zonaId);
     if (!bb || bb.w <= 0 || bb.h <= 0) return;
@@ -630,6 +674,7 @@ export class Compositor {
     v.globalCompositeOperation = 'source-over';
     v.clearRect(bx, by, bw, bh);
     v.drawImage(this._back, bx, by, bw, bh, bx, by, bw, bh);
+    this._crossfade();
   }
 
   // Aplica textura + passes de UMA zona num contexto (recortado p/ bbox).

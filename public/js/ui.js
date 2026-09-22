@@ -199,13 +199,23 @@ export class UI {
   // Estado das setas e dos gradientes — 2px threshold idêntico ao referência, como estava antes
   _atualizarSetas() {
     if (!this.chipsBar) return;
-    const podeEsq = this.chipsBar.scrollLeft > 2;
-    const podeDir = this.chipsBar.scrollLeft + this.chipsBar.clientWidth < this.chipsBar.scrollWidth - 2;
+    // Setas agora navegam categorias: habilitar conforme posição do filtro,
+    // não do scroll (antes ficavam disabled e o clique não funcionava).
+    const cats = [...this.chipsBar.querySelectorAll('[data-cat]')].map(b => b.dataset.cat);
+    if (this.chipsBar.querySelector('[data-esp="favs"]')) cats.push('__favs');
+    const cur = this.listaEspecial === 'favs' ? '__favs' : this.filtro;
+    const idx = cats.indexOf(cur);
+    const podeEsq = idx > 0;
+    const podeDir = idx >= 0 && idx < cats.length - 1;
     if (this.catLeftEl) this.catLeftEl.disabled = !podeEsq;
     if (this.catRightEl) this.catRightEl.disabled = !podeDir;
+    // Fades para indicar scroll ainda disponível
+    const podeScrollEsq = this.chipsBar.scrollLeft > 2;
+    const podeScrollDir =
+      this.chipsBar.scrollLeft + this.chipsBar.clientWidth < this.chipsBar.scrollWidth - 2;
     if (this.chipsScroll) {
-      this.chipsScroll.classList.toggle('pode-esq', podeEsq);
-      this.chipsScroll.classList.toggle('pode-dir', podeDir);
+      this.chipsScroll.classList.toggle('pode-esq', podeScrollEsq);
+      this.chipsScroll.classList.toggle('pode-dir', podeScrollDir);
     }
   }
 

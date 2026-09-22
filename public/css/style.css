@@ -758,18 +758,19 @@ body.drawer-fechado #topbar {
 .hotspot-master .hs-pulse svg {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
-/* Unificado com os hotspots por zona: mesmo design, cores e efeitos em todas as cenas */
+/* Unificado com os hotspots por zona: mesmo layout, cores e efeitos em todas as cenas */
 .hotspot-master {
-  padding: 22px;
-  z-index: 6;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  padding: 14px; /* igual .hotspot-zona */
+  z-index: 5;
+  display: block;
 }
 .hotspot-master .hs-pulse svg {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+.hotspot-master .hs-trilho {
+  display: none;
 }
 .hotspot-master.ativo .hs-trilho {
   background: linear-gradient(90deg, var(--primary), rgba(27, 82, 68, 0.6));
@@ -2159,18 +2160,6 @@ input:focus-visible,
     height: 56px;
     font-size: 24px;
   }
-  .hotspot-master {
-    padding: 14px;
-    gap: 10px;
-  }
-  .hotspot-master .hs-pulse {
-    width: 34px;
-    height: 34px;
-  }
-  .hotspot-master .hs-pulse svg {
-    width: 15px;
-    height: 15px;
-  }
   .hs-trilho {
     max-width: 90px;
   }
@@ -2329,18 +2318,6 @@ input:focus-visible,
   }
   .item-acabamento {
     font-size: 0.66rem;
-  }
-  .hotspot-master {
-    padding: 12px;
-    gap: 6px;
-  }
-  .hotspot-master .hs-pulse {
-    width: 30px;
-    height: 30px;
-  }
-  .hotspot-master .hs-pulse svg {
-    width: 14px;
-    height: 14px;
   }
   .hs-nome {
     font-size: 13px;

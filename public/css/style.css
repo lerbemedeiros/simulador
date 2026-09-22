@@ -252,6 +252,25 @@ body,
   border-color: var(--line-strong);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
+[data-theme='dark'] .item.ativo,
+[data-theme='dark'] .item.selected {
+  background: var(--bg-elev);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.08),
+    0 8px 22px rgba(0, 0, 0, 0.35);
+}
+[data-theme='dark'] .item.ativo[data-key='madeirados'],
+[data-theme='dark'] .item.selected[data-key='madeirados'],
+[data-theme='dark'] .item.ativo[data-key='fantasia'],
+[data-theme='dark'] .item.selected[data-key='fantasia'],
+[data-theme='dark'] .item.ativo[data-key='unicolor'],
+[data-theme='dark'] .item.selected[data-key='unicolor'],
+[data-theme='dark'] .item.ativo[data-key='metalizados'],
+[data-theme='dark'] .item.selected[data-key='metalizados'],
+[data-theme='dark'] .item.ativo[data-key='unicolor_especial'],
+[data-theme='dark'] .item.selected[data-key='unicolor_especial'] {
+  background: var(--bg-elev);
+}
 [data-theme='dark'] #toast {
   background: #232c28;
   border-color: var(--line);

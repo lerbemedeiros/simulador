@@ -2,15 +2,17 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "bundler",
-    "checkJs": true,
+    "moduleResolution": "node",
     "allowJs": true,
+    "checkJs": false,
     "strict": false,
     "noEmit": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "/*": ["public/*"]
-    }
+      "@/*": ["public/*"]
+    },
+    "types": ["vite/client"]
   },
   "include": ["public/js/**/*", "scripts/**/*", "tests/**/*", "vite.config.js"],
   "exclude": ["node_modules", "dist", "coverage"]

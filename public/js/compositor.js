@@ -540,7 +540,7 @@ export class Compositor {
   }
 
   // Crossfade premium: overlay com o frame antigo em cima do novo,
-  // anima 1 -> 0 revelando a textura nova suavemente (~300ms).
+  // anima 1 -> 0 revelando a textura nova suavemente (~1s perceptível).
   // Funciona em todas as cenas; respeita prefers-reduced-motion.
   _crossfade() {
     const antigo = this._fadeAntigo;
@@ -556,12 +556,12 @@ export class Compositor {
     overlay.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:8;pointer-events:none;';
     overlay.getContext('2d').drawImage(antigo, 0, 0, this.W, this.H);
     this.canvas.parentElement.appendChild(overlay);
-    // força reflow + anima opacidade do frame antigo até revelar o novo
+    // força reflow + anima opacidade do frame antigo até revelar o novo (1s)
     requestAnimationFrame(() => {
-      overlay.style.transition = 'opacity 300ms var(--ease-out, ease)';
+      overlay.style.transition = 'opacity 1000ms var(--ease-out, ease)';
       overlay.style.opacity = '0';
     });
-    setTimeout(() => overlay.remove(), 380);
+    setTimeout(() => overlay.remove(), 1100);
   }
 
   // Troca UMA textura com garantia de imagem carregada (via diffuse

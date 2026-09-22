@@ -52,5 +52,4 @@ playwright/.cache/
 tmp/
 temp/
 
-# root index.html é cópia de public/index.html para dev (Vite root '.')
-/index.html
+

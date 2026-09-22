@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   base: './',
-  root: '.',
-  publicDir: 'public',
+  // dev: serve public/ em / (http://localhost:3000/ funciona)
+  // build: usa public/index.html como entry e copia public/ via publicDir
+  root: command === 'serve' ? 'public' : '.',
+  publicDir: command === 'serve' ? false : 'public',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
@@ -31,9 +33,7 @@ export default defineConfig({
       exclude: ['public/js/config/texturas.js', 'public/sw.js'],
       reportsDirectory: 'coverage',
       reporter: ['text', 'html', 'lcov'],
-      // Gate progressivo: 33% atual (52 testes). Próximas metas: 45% -> 60% -> 70%
-      // Arquivos pesados (main/ui/compositor) cobertos via E2E; unidade foca em lógica.
       thresholds: { lines: 33, functions: 33, branches: 55 },
     },
   },
-});
+}));

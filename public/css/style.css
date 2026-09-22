@@ -100,6 +100,9 @@ body,
 [data-theme='dark'] #painel::before {
   opacity: 0;
 }
+[data-theme='dark'] #dock::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+}
 [data-theme='dark'] .drawer-search input {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -199,6 +202,19 @@ body,
   background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(8px);
   border-color: rgba(255, 255, 255, 0.06);
+}
+[data-theme='dark'] .csb-count {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--txt);
+  box-shadow: none;
+}
+[data-theme='dark'] .item-thumb {
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+[data-theme='dark'] .acabamento-count {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--txt);
 }
 [data-theme='dark'] .hamburger {
   background: var(--panel-solid);
@@ -786,7 +802,7 @@ body.drawer-fechado #topbar {
   display: none !important;
 }
 
-/* ---------- Drawer flutuante premium (overlay sobre a cena) ---------- */
+/* Drawer premium glass — light & dark padronizado */
 #painel {
   position: fixed;
   top: 20px;
@@ -794,10 +810,10 @@ body.drawer-fechado #topbar {
   bottom: 20px;
   width: 380px;
   max-width: 92vw;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 30px;
   padding: 92px 24px 34px;
   box-sizing: border-box;

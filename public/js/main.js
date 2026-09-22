@@ -661,7 +661,8 @@ async function init() {
     // Usa hash puro (sem pathname) para funcionar tanto em vite (/public/index.html) quanto em serve (/)
     if (envId !== AMB_ID && AMBIENTES[envId]?.camadas) {
       const base = location.href.split('#')[0];
-      const novo = `${base}#env=${envId}`;
+      const cb = Date.now(); // cache-busting p/ SW não servir main.js antigo
+      const novo = `${base}#env=${envId}&cb=${cb}`;
       // Força SW a buscar config fresca na próxima carga
       if ('caches' in window) {
         // limpa cache da versão antiga em background (não bloqueia navegação)
@@ -674,12 +675,9 @@ async function init() {
           )
           .catch(() => {});
       }
-      location.href = novo;
-      // reload com delay para garantir hash gravado; bypass de cache via timestamp
-      setTimeout(() => {
-        // force-reload que invalida http cache
-        location.reload();
-      }, 80);
+      // Navegação limpa: aplica hash e recarrega uma única vez
+      location.replace(novo);
+      setTimeout(() => location.reload(), 60);
     } else {
       ui.toast(`Ambiente ${e.nome} carregado`, 'ok');
     }

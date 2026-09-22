@@ -266,6 +266,37 @@ body,
   color: var(--txt);
   border-color: var(--line);
 }
+[data-theme='dark'] .hotspot:hover .hs-pulse {
+  background: rgba(89, 162, 140, 0.25);
+  border-color: var(--primary);
+  box-shadow:
+    0 0 0 5px rgba(89, 162, 140, 0.2),
+    0 6px 22px rgba(89, 162, 140, 0.5);
+}
+[data-theme='dark'] .hotspot.ativo .hs-pulse {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow:
+    0 0 0 4px rgba(89, 162, 140, 0.4),
+    0 0 18px rgba(89, 162, 140, 0.7),
+    0 4px 18px rgba(89, 162, 140, 0.6);
+}
+[data-theme='dark'] .hotspot-master.ativo .hs-pulse {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow:
+    0 0 0 5px rgba(89, 162, 140, 0.4),
+    0 0 24px rgba(89, 162, 140, 0.7),
+    0 4px 14px rgba(0, 0, 0, 0.4);
+}
+[data-theme='dark'] .hotspot-master.ativo .hs-trilho {
+  background: linear-gradient(90deg, var(--primary), rgba(89, 162, 140, 0.6));
+  box-shadow: 0 1px 8px rgba(89, 162, 140, 0.6);
+}
+[data-theme='dark'] .hotspot.ativo::after,
+[data-theme='dark'] .hotspot-master.ativo::after {
+  border-color: rgba(89, 162, 140, 0.6);
+}
 [data-theme='dark'] .icon-btn,
 [data-theme='dark'] .drawer-action,
 [data-theme='dark'] .item-fav,

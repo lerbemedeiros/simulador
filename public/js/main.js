@@ -384,6 +384,7 @@ async function init() {
     interaction.definirRotulosPorZona(mapa);
   }
   function atualizarSelo() {
+    // Quarto = por zona; cozinha = master. Visual unificado via CSS.
     const porZona = env.cfg.id === 'quarto' && env.cfg.zonas.length >= 2;
     if (porZona) atualizarRotulosPorZona();
     else atualizarRotuloMaster();

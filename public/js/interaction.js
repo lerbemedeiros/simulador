@@ -23,13 +23,13 @@ export const ZONA_TODAS = { id: '__todas', label: 'Todas as peças' };
 
 export const POSICAO_MASTER = { x: 34, y: 16 };
 
-// Quando true, cria 1 hotspot por zona com material independente.
-// Ativado automaticamente para quarto (3 zonas) — cozinha continua master.
+// Quando true, cria 1 hotspot por zona com material independente (quarto).
+// Cozinha continua com 1 hotspot master — mas o VISUAL (cores/tamanho)
+// é unificado com o quarto via CSS.
 function modoPorZona(cfg) {
-  if (!cfg || !cfg.zonas) return false;
+  if (!cfg || !cfg.zonas || !cfg.zonas.length) return false;
   if (cfg.modoHotspots === 'por_zona') return true;
   if (cfg.modoHotspots === 'master') return false;
-  // Quarto: 1 hotspot por zona (3 materiais independentes)
   if (cfg.id === 'quarto' && cfg.zonas.length >= 2) return true;
   return false;
 }

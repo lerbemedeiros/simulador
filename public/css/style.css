@@ -285,39 +285,7 @@ body,
 [data-theme='dark'] .env-head span {
   color: var(--txt);
 }
-/* Hotspots premium — unificados (40px) com cores por tema */
-[data-theme='dark'] .hs-pulse {
-  background: rgba(255, 255, 255, 0.14);
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  color: #fff;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
-}
-[data-theme='dark'] .hotspot:hover .hs-pulse,
-[data-theme='dark'] .hotspot-master:hover .hs-pulse {
-  background: rgba(89, 162, 140, 0.35);
-  border-color: var(--primary);
-  box-shadow:
-    0 0 0 5px rgba(89, 162, 140, 0.25),
-    0 6px 22px rgba(89, 162, 140, 0.5);
-}
-[data-theme='dark'] .hotspot.ativo .hs-pulse,
-[data-theme='dark'] .hotspot-master.ativo .hs-pulse {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #fff;
-  box-shadow:
-    0 0 0 4px rgba(89, 162, 140, 0.4),
-    0 0 18px rgba(89, 162, 140, 0.75),
-    0 4px 18px rgba(89, 162, 140, 0.6);
-}
-[data-theme='dark'] .hotspot-master.ativo .hs-trilho {
-  background: linear-gradient(90deg, var(--primary), rgba(89, 162, 140, 0.6));
-  box-shadow: 0 1px 8px rgba(89, 162, 140, 0.6);
-}
-[data-theme='dark'] .hotspot.ativo::after,
-[data-theme='dark'] .hotspot-master.ativo::after {
-  border-color: rgba(89, 162, 140, 0.6);
-}
+/* Hotspots: mesmas cores em light e dark (dark herda o estilo light) */
 [data-theme='dark'] .icon-btn,
 [data-theme='dark'] .drawer-action,
 [data-theme='dark'] .item-fav,

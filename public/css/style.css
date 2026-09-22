@@ -723,13 +723,13 @@ body.drawer-fechado #topbar {
   }
 }
 
-/* ---------- Hotspot master: pino pulsante + linha + nome do padrão ---------- */
-/* Light premium — destaque mais forte no estado normal, mesmo 40px */
+/* ---------- Hotspot: cores fixas — IDÊNTICAS em light e dark ---------- */
+/* Dark segue o light (nada de overrides por tema): mesmo verde premium. */
 .hotspot .hs-pulse,
 .hotspot-master .hs-pulse {
   background: rgba(255, 255, 255, 0.55);
   border: 1.5px solid rgba(255, 255, 255, 0.95);
-  color: var(--primary);
+  color: #1b5244;
   text-shadow: none;
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.18),
@@ -738,16 +738,16 @@ body.drawer-fechado #topbar {
 .hotspot:hover .hs-pulse,
 .hotspot-master:hover .hs-pulse {
   background: rgba(255, 255, 255, 0.8);
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: #1b5244;
+  color: #1b5244;
   box-shadow:
     0 0 0 5px rgba(27, 82, 68, 0.2),
     0 6px 22px rgba(27, 82, 68, 0.4);
 }
 .hotspot.ativo .hs-pulse,
 .hotspot-master.ativo .hs-pulse {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: #1b5244;
+  border-color: #1b5244;
   color: #fff;
   box-shadow:
     0 0 0 4px rgba(27, 82, 68, 0.4),
@@ -773,7 +773,7 @@ body.drawer-fechado #topbar {
   display: none;
 }
 .hotspot-master.ativo .hs-trilho {
-  background: linear-gradient(90deg, var(--primary), rgba(27, 82, 68, 0.6));
+  background: linear-gradient(90deg, #1b5244, rgba(27, 82, 68, 0.6));
   box-shadow: 0 1px 8px rgba(27, 82, 68, 0.5);
 }
 .hotspot-master.ativo .hs-nome {

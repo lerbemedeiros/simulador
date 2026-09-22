@@ -658,14 +658,14 @@ async function init() {
       return;
     }
     // Mesmo projeto: se for outro ambiente com camadas, recarrega via hash
-    // Usa hash puro (sem pathname) para funcionar tanto em vite (/public/index.html) quanto em serve (/)
+    // Usa query ?t=<timestamp> (força reload automático do navegador + bypass
+    // do cache do Service Worker) + hash #env= para o resolver ler.
     if (envId !== AMB_ID && AMBIENTES[envId]?.camadas) {
-      const base = location.href.split('#')[0];
-      const cb = Date.now(); // cache-busting p/ SW não servir main.js antigo
-      const novo = `${base}#env=${envId}&cb=${cb}`;
+      const cb = Date.now();
+      const base = location.href.split('?')[0].split('#')[0];
+      const novo = `${base}?t=${cb}#env=${envId}`;
       // Força SW a buscar config fresca na próxima carga
       if ('caches' in window) {
-        // limpa cache da versão antiga em background (não bloqueia navegação)
         caches
           .keys()
           .then(keys =>
@@ -675,9 +675,8 @@ async function init() {
           )
           .catch(() => {});
       }
-      // Navegação limpa: aplica hash e recarrega uma única vez
-      location.replace(novo);
-      setTimeout(() => location.reload(), 60);
+      // Query ?t= muda a URL → navegador recarrega automaticamente (sem race).
+      location.href = novo;
     } else {
       ui.toast(`Ambiente ${e.nome} carregado`, 'ok');
     }

@@ -1,0 +1,53 @@
+# deps
+node_modules/
+.pnp/
+.pnp.js
+
+# build
+dist/
+.build/
+coverage/
+.nyc_output/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# editor
+.vscode/
+.idea/
+*.suo
+*.swp
+*~
+
+# os
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# generated texturas (regerado via npm run build:texturas)
+public/assets/texturas/thumbs/
+public/assets/texturas/diffuse/
+public/assets/texturas/index.json
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+logs/
+
+# caches
+.eslintcache
+.prettiercache
+.parcel-cache
+.turbo
+
+# playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# temp
+tmp/
+temp/

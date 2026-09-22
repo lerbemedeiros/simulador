@@ -1,0 +1,60 @@
+{
+  "name": "simulador-de-ambientes",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Simulador 2.5D de texturas Berneck em ambientes reais — render bbox-only, hotspots pulsantes, share via hash.",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "browserslist": [
+    ">0.5%",
+    "last 2 versions",
+    "not dead",
+    "not op_mini all"
+  ],
+  "scripts": {
+    "build:texturas": "node scripts/build-texturas.mjs",
+    "build": "npm run build:texturas",
+    "build:vite": "vite build && node -e \"import('fs').then(fs=>{try{fs.rmSync('dist/public',{recursive:true,force:true})}catch(e){}})\"",
+    "dev": "vite --host",
+    "preview": "vite preview",
+    "serve": "npx serve public -l 3000",
+    "serve:dist": "npx serve dist -l 4173",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.6.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.2",
+    "husky": "^9.1.7",
+    "jsdom": "^24.0.0",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.9.8",
+    "puppeteer-core": "^25.10.0",
+    "serve": "^14.2.6",
+    "sharp": "^0.33.5",
+    "vite": "^5.4.0",
+    "vitest": "^1.6.0"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "allowScripts": {
+    "sharp@0.33.5": true
+  }
+}

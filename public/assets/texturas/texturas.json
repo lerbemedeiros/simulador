@@ -1,0 +1,148 @@
+{
+  "_comentario": "Catálogo editável — espelho de https://visualizador.berneck.net/novo/assets/js/texturas.js . Para adicionar nova textura: 1) coloque o JPG em public/assets/texturas/ 2) adicione um objeto em 'texturas' abaixo 3) rode npm run build:texturas (gera thumbs/diffuse + index.json). Campos: nome, acabamento, arquivo, categoria (g1..g6), novo (opcional).",
+  "categorias": [
+    { "key": "g1", "label": "Amadeirados", "icon": "fa-tree", "cor": "#7D3F2A" },
+    { "key": "g2", "label": "Unicolor", "icon": "fa-palette", "cor": "#7A7E84" },
+    { "key": "g3", "label": "Unicolor Especial", "icon": "fa-gem", "cor": "#3D8870" },
+    { "key": "g4", "label": "Metalizados", "icon": "fa-star", "cor": "#7e7e7e" },
+    { "key": "g5", "label": "Pedras", "icon": "fa-mountain", "cor": "#5A7890" },
+    { "key": "g6", "label": "Tecido", "icon": "fa-scroll", "cor": "#8b8358" }
+  ],
+  "texturas": [
+    { "nome": "Amantea", "acabamento": "Tatto", "arquivo": "Amantea_Tatto.jpg", "categoria": "g1" },
+    { "nome": "Barrique", "acabamento": "Tatto", "arquivo": "Barrique_Tatto.jpg", "categoria": "g1" },
+    { "nome": "Baru", "acabamento": "Micro", "arquivo": "Baru_Micro.jpg", "categoria": "g1" },
+    { "nome": "Cacau", "acabamento": "Grann", "arquivo": "Cacau_Grann.jpg", "categoria": "g1" },
+    {
+      "nome": "Carvalho Japandi",
+      "acabamento": "Micro",
+      "arquivo": "Carvalho-Japandi_Micro.jpg",
+      "categoria": "g1"
+    },
+    {
+      "nome": "Carvalho Treviso",
+      "acabamento": "Design",
+      "arquivo": "Carvalho-Treviso_Design.jpg",
+      "categoria": "g1"
+    },
+    { "nome": "Castaine", "acabamento": "Tatto", "arquivo": "Castaine_Tatto.jpg", "categoria": "g1" },
+    {
+      "nome": "Cerejeira Clara",
+      "acabamento": "Grann",
+      "arquivo": "Cerejeira_Clara_Grann.jpg",
+      "categoria": "g1",
+      "novo": true
+    },
+    {
+      "nome": "Cerejeira Natural",
+      "acabamento": "Grann",
+      "arquivo": "Cerejeira_Natural_Grann.jpg",
+      "categoria": "g1",
+      "novo": true
+    },
+    { "nome": "Cinamomo", "acabamento": "Grann", "arquivo": "Cinamomo_Grann.jpg", "categoria": "g1" },
+    {
+      "nome": "Frassino Almendra",
+      "acabamento": "Poro",
+      "arquivo": "Frassino-Almendra_Poro.jpg",
+      "categoria": "g1"
+    },
+    {
+      "nome": "Freijó Nativo",
+      "acabamento": "Grann",
+      "arquivo": "Freijo_Nativo_Grann.jpg",
+      "categoria": "g1",
+      "novo": true
+    },
+    { "nome": "Galiano", "acabamento": "Grann", "arquivo": "Galiano_Grann.jpg", "categoria": "g1" },
+    { "nome": "Gengibre", "acabamento": "Tatto", "arquivo": "Gengibre_Tatto.jpg", "categoria": "g1" },
+    { "nome": "Italian Noce", "acabamento": "Poro", "arquivo": "Italian-Noce_Poro.jpg", "categoria": "g1" },
+    {
+      "nome": "Jequitibá Brasil",
+      "acabamento": "Grann",
+      "arquivo": "Jequitiba_Grann.jpg",
+      "categoria": "g1",
+      "novo": true
+    },
+    { "nome": "Louro Freijó", "acabamento": "Grann", "arquivo": "Louro-Freijó_Grann.jpg", "categoria": "g1" },
+    { "nome": "Louro Preto", "acabamento": "Grann", "arquivo": "Louro-Preto_Grann.jpg", "categoria": "g1" },
+    {
+      "nome": "Mogno Imperial",
+      "acabamento": "Grann",
+      "arquivo": "Mogno_Imperial.jpg",
+      "categoria": "g1",
+      "novo": true
+    },
+    {
+      "nome": "Nogal Artezzano",
+      "acabamento": "Grann",
+      "arquivo": "Nogal-Artezzano_Grann.jpg",
+      "categoria": "g1"
+    },
+    {
+      "nome": "Nogal Málaga",
+      "acabamento": "Design",
+      "arquivo": "Nogal-Málaga_Design.jpg",
+      "categoria": "g1"
+    },
+    { "nome": "Nogal Sevilha", "acabamento": "Poro", "arquivo": "Nogal-Sevilha_Poro.jpg", "categoria": "g1" },
+    { "nome": "Peroba", "acabamento": "Tatto", "arquivo": "Peroba_Tatto.jpg", "categoria": "g1" },
+    { "nome": "Provence", "acabamento": "Tatto", "arquivo": "Provence_Tatto.jpg", "categoria": "g1" },
+    {
+      "nome": "Roble Catedral",
+      "acabamento": "Grann",
+      "arquivo": "Roble-Catedral_Grann.jpg",
+      "categoria": "g1"
+    },
+    { "nome": "Solanum", "acabamento": "Grann", "arquivo": "Solanum_Grann.jpg", "categoria": "g1" },
+    { "nome": "Chiaro", "acabamento": "Vel", "arquivo": "Chiaro_Vel.jpg", "categoria": "g1" },
+    { "nome": "Veneer", "acabamento": "Grann", "arquivo": "Veneer_Grann.jpg", "categoria": "g1" },
+    { "nome": "Griseo", "acabamento": "Grann", "arquivo": "Griseo_Grann.jpg", "categoria": "g1" },
+    { "nome": "Azul", "acabamento": "TX", "arquivo": "Azul_TX.jpg", "categoria": "g2" },
+    { "nome": "Bege", "acabamento": "TX", "arquivo": "Bege_TX.jpg", "categoria": "g2" },
+    { "nome": "Branco", "acabamento": "Design", "arquivo": "Branco_Design.jpg", "categoria": "g2" },
+    { "nome": "Branco", "acabamento": "Micro", "arquivo": "Branco_Micro.jpg", "categoria": "g2" },
+    { "nome": "Branco", "acabamento": "Vel", "arquivo": "Branco_Vel.jpg", "categoria": "g2" },
+    { "nome": "Branco", "acabamento": "TX", "arquivo": "Branco_TX.jpg", "categoria": "g2" },
+    { "nome": "Branco", "acabamento": "Lsf", "arquivo": "Branco_Lsf.jpg", "categoria": "g2" },
+    { "nome": "Cinza Argila", "acabamento": "TX", "arquivo": "Cinza-Argila_TX.jpg", "categoria": "g2" },
+    { "nome": "Cinza Cobalto", "acabamento": "TX", "arquivo": "Cinza-Cobalto_TX.jpg", "categoria": "g2" },
+    { "nome": "Cinza Cristal", "acabamento": "TX", "arquivo": "Cinza-Cristal_TX.jpg", "categoria": "g2" },
+    { "nome": "Desert", "acabamento": "Vel", "arquivo": "Desert_Vel.jpg", "categoria": "g2" },
+    { "nome": "Gelo", "acabamento": "Vel", "arquivo": "Gelo_Vel.jpg", "categoria": "g2" },
+    { "nome": "Pecan", "acabamento": "Vel", "arquivo": "Pecan_Vel.jpg", "categoria": "g2" },
+    { "nome": "Azul", "acabamento": "Vel", "arquivo": "Azul_Vel.jpg", "categoria": "g3" },
+    { "nome": "Latte", "acabamento": "Micro", "arquivo": "Latte_Micro.jpg", "categoria": "g3" },
+    { "nome": "Cinza Cobalto", "acabamento": "Vel", "arquivo": "Cinza-Cobalto_Vel.jpg", "categoria": "g3" },
+    { "nome": "Chumbo", "acabamento": "Micro", "arquivo": "Chumbo_Micro.jpg", "categoria": "g3" },
+    { "nome": "Tangará", "acabamento": "Micro", "arquivo": "Tangará_Micro.jpg", "categoria": "g3" },
+    {
+      "nome": "Azul Galeno",
+      "acabamento": "Micro",
+      "arquivo": "Azul_Galeno.jpg",
+      "categoria": "g3",
+      "novo": true
+    },
+    { "nome": "Ceramik", "acabamento": "Micro", "arquivo": "Ceramik_Micro.jpg", "categoria": "g3" },
+    { "nome": "Falésia", "acabamento": "Vel", "arquivo": "Falésia_Vel.jpg", "categoria": "g3" },
+    { "nome": "Nero", "acabamento": "Rust", "arquivo": "Nero_Rust.jpg", "categoria": "g3" },
+    { "nome": "Nude", "acabamento": "Vel", "arquivo": "Nude_Vel.jpg", "categoria": "g3" },
+    { "nome": "Millennial", "acabamento": "Micro", "arquivo": "Millennial_Micro.jpg", "categoria": "g3" },
+    { "nome": "Ópera", "acabamento": "Micro", "arquivo": "Ópera_Micro.jpg", "categoria": "g3" },
+    { "nome": "Preto", "acabamento": "TX", "arquivo": "Preto_TX.jpg", "categoria": "g3" },
+    { "nome": "Super White", "acabamento": "Micro", "arquivo": "superwhite.jpg", "categoria": "g3" },
+    { "nome": "Tabasco", "acabamento": "Micro", "arquivo": "Tabasco_Micro.jpg", "categoria": "g3" },
+    { "nome": "Taupe", "acabamento": "Micro", "arquivo": "Taupe_Micro.jpg", "categoria": "g3" },
+    { "nome": "Verti", "acabamento": "Micro", "arquivo": "Verti_Micro.jpg", "categoria": "g3" },
+    { "nome": "Crômio", "acabamento": "Vel", "arquivo": "Cromio_Vel.jpg", "categoria": "g4" },
+    { "nome": "Metallic Suede", "acabamento": "Tx", "arquivo": "Metallic-Suede_TX.jpg", "categoria": "g4" },
+    { "nome": "Dust", "acabamento": "Alumi", "arquivo": "Dust_Alumi.jpg", "categoria": "g4" },
+    { "nome": "Gold", "acabamento": "Alumi", "arquivo": "Gold_Alumi.jpg", "categoria": "g4" },
+    { "nome": "Plomo", "acabamento": "Alumi", "arquivo": "Plomo_Alumi.jpg", "categoria": "g4" },
+    { "nome": "Argento", "acabamento": "Rust", "arquivo": "Argento_Rust.jpg", "categoria": "g4" },
+    { "nome": "Ruggine", "acabamento": "TX", "arquivo": "Ruggine_TX.jpg", "categoria": "g4" },
+    { "nome": "Volakas", "acabamento": "Micro", "arquivo": "Volakas_Micro.jpg", "categoria": "g5" },
+    { "nome": "Basalto", "acabamento": "Rust", "arquivo": "Basalto_Rust.jpg", "categoria": "g5" },
+    { "nome": "Linen Grigio", "acabamento": "Vel", "arquivo": "Linen-Grigio_Vel.jpg", "categoria": "g6" }
+  ]
+}

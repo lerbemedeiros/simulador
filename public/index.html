@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Simulador de Ambientes — Premium</title>
+    <meta
+      name="description"
+      content="Simulador de Ambientes Premium — visualize texturas Berneck em cozinhas reais com render 2.5D, troque revestimentos e compartilhe sua composição."
+    />
+    <meta name="theme-color" content="#1B5244" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="canonical" href="https://example.com/simulador-de-ambientes/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Simulador de Ambientes — Premium" />
+    <meta
+      property="og:description"
+      content="Visualize texturas Berneck em ambientes reais e compartilhe sua composição."
+    />
+    <meta property="og:image" content="assets/images/icon-512.png" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png" />
+    <link rel="apple-touch-icon" href="assets/images/icon-192.png" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c9a86a'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23101014'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E"
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="preloader" aria-live="polite" aria-busy="true">
+      <div class="spinner" role="status" aria-label="Carregando">
+        <div class="spinner-ring"></div>
+        <img
+          src="assets/images/berneck-favicon.png"
+          alt="Berneck"
+          class="preloader-icon"
+          width="60"
+          height="60"
+        />
+      </div>
+    </div>
+    <!-- compat: mantém #loading para JS legado que referencia #loadBar/#loadMsg -->
+    <div id="loading" aria-hidden="true" style="display: none">
+      <div id="loadBar" style="width: 0%"></div>
+      <p id="loadMsg"></p>
+      <p id="loadSub"></p>
+      <span id="housePercent"></span>
+    </div>
+
+    <div id="app">
+      <main id="palco">
+        <header id="topbar">
+          <button
+            id="hamburger"
+            class="hamburger aberto"
+            aria-label="Fechar menu de texturas"
+            aria-expanded="true"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div id="cenaWrap">
+          <div class="cena-box" id="cenaBox">
+            <div id="cena"></div>
+            <div class="hotspots"></div>
+          </div>
+        </div>
+      </main>
+      <aside id="painel" aria-label="Menu de texturas"></aside>
+      <nav id="dock" aria-label="Ações rápidas">
+        <button
+          class="dock-btn"
+          id="dockDesfazer"
+          data-tooltip="Desfazer (Ctrl+Z)"
+          aria-label="Desfazer última alteração"
+        >
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+        <button
+          class="dock-btn"
+          id="dockReset"
+          data-tooltip="Restaurar padrão"
+          aria-label="Restaurar texturas padrão"
+        >
+          <i class="fa-solid fa-rotate"></i>
+        </button>
+        <span class="tool-divider" aria-hidden="true"></span>
+        <button class="dock-btn" id="dockBaixar" data-tooltip="Baixar" aria-label="Baixar imagem">
+          <i class="fa-solid fa-download"></i>
+        </button>
+        <button
+          class="dock-btn"
+          id="dockImprimir"
+          data-tooltip="Imprimir"
+          aria-label="Imprimir ficha técnica"
+        >
+          <i class="fa-solid fa-print"></i>
+        </button>
+        <button
+          class="dock-btn dock-share"
+          id="dockShare"
+          data-tooltip="Compartilhar"
+          aria-label="Compartilhar composição"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+        </button>
+        <button class="dock-btn" id="dockFull" data-tooltip="Tela cheia" aria-label="Ver em tela cheia">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <span class="tool-divider" aria-hidden="true"></span>
+        <button class="dock-btn" id="dockAjuda" data-tooltip="Ajuda" aria-label="Ajuda">
+          <i class="fa-solid fa-circle-question"></i>
+        </button>
+      </nav>
+      <div id="backdrop" aria-hidden="true"></div>
+      <div id="envBar" role="toolbar" aria-label="Trocar de ambiente">
+        <button class="envbar-fab" id="envBarBtn" type="button" aria-label="Escolher ambiente">
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+        </button>
+        <button class="envbar-txt" id="envBarTxt" type="button">SELECIONAR AMBIENTE</button>
+      </div>
+    </div>
+
+    <div id="envModal" class="env-modal" aria-hidden="true">
+      <div class="env-backdrop" data-env-fechar aria-hidden="true"></div>
+      <div class="env-panel">
+        <div class="env-head">
+          <span class="env-head-icon" aria-hidden="true"><i class="fa-solid fa-house-circle-check"></i></span>
+          <div class="env-head-text">
+            <strong>Escolha o ambiente</strong>
+            <span>Onde você quer aplicar o projeto?</span>
+          </div>
+          <span class="env-count" id="envCount" aria-hidden="true">3 ambientes</span>
+          <button class="env-close" data-env-fechar aria-label="Fechar seletor de ambientes" type="button">
+            ✕
+          </button>
+        </div>
+        <div class="env-card-row" id="envCardRow" role="listbox" aria-label="Selecionar ambiente"></div>
+        <div class="env-dots" id="envDots" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div id="ficha" aria-hidden="true"></div>
+
+    <div id="rotateOverlay" aria-hidden="true">
+      <div class="rotate-card">
+        <div class="rotate-icon"><i class="fa-solid fa-rotate" aria-hidden="true"></i></div>
+        <strong>Gire a tela</strong>
+        <p>Para navegar melhor, coloque<br />o aparelho na horizontal</p>
+        <span
+          ><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i>
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          <i class="fa-solid fa-mobile-screen-button" aria-hidden="true" style="transform: rotate(90deg)"></i
+        ></span>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

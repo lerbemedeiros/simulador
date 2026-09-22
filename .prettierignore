@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage
+public/assets/texturas/thumbs
+public/assets/texturas/diffuse
+public/assets/texturas/index.json
+package-lock.json

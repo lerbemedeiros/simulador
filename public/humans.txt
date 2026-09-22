@@ -1,0 +1,12 @@
+/* TEAM */
+  Simulador de Ambientes — Premium
+  Site: ./
+  Contact: suporte@example.com
+
+/* THANKS */
+  Berneck, Vite, Sharp
+
+/* SITE */
+  Last update: 2026/09/21
+  Language: pt-BR
+  Doctype: HTML5

@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+dist
+coverage
+.git
+.github
+.vscode
+.idea
+public/assets/texturas/thumbs
+public/assets/texturas/diffuse

@@ -276,7 +276,7 @@ body,
   color: var(--muted);
 }
 [data-theme='dark'] .env-modal .env-backdrop {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.35);
 }
 [data-theme='dark'] .env-head {
   border-color: var(--line);
@@ -3186,9 +3186,7 @@ body.modo-foco #topbar {
 .env-backdrop {
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 90% at 50% 0%, rgba(27, 82, 68, 0.18), rgba(8, 20, 15, 0.55));
-  backdrop-filter: blur(14px) saturate(150%);
-  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  background: radial-gradient(120% 90% at 50% 0%, rgba(27, 82, 68, 0.12), rgba(8, 20, 15, 0.3));
   opacity: 0;
   transition: opacity 0.4s var(--ease-out);
 }

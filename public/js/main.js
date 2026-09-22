@@ -785,12 +785,9 @@ async function init() {
     if (e.key === 'Escape' && envModal && envModal.classList.contains('aberto')) fecharSeletorAmbientes();
   });
 
-  // ---- Casinha de ambientes (rodapé central): abre o mesmo seletor premium ----
+  // ---- Botão único "Selecionar ambiente" (rodapé central) ----
   const envBarBtn = document.querySelector('#envBarBtn');
-  const envBarTxt = document.querySelector('#envBarTxt');
-  const abrirAmbientesPeloRodape = () => abrirSeletorAmbientes();
-  if (envBarBtn) envBarBtn.addEventListener('click', abrirAmbientesPeloRodape);
-  if (envBarTxt) envBarTxt.addEventListener('click', abrirAmbientesPeloRodape);
+  if (envBarBtn) envBarBtn.addEventListener('click', () => abrirSeletorAmbientes());
 
   // 4. Interação + hotspots
   const interaction = new Interaction(comp, {

@@ -285,34 +285,30 @@ body,
 [data-theme='dark'] .env-head span {
   color: var(--txt);
 }
-[data-theme='dark'] #envBar .envbar-fab,
-[data-theme='dark'] #envBar .envbar-txt {
-  background: var(--panel-solid);
-  color: var(--txt);
-  border-color: var(--line);
+/* Hotspots premium — unificados (40px) com cores por tema */
+[data-theme='dark'] .hs-pulse {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
-[data-theme='dark'] .hotspot:hover .hs-pulse {
-  background: rgba(89, 162, 140, 0.25);
+[data-theme='dark'] .hotspot:hover .hs-pulse,
+[data-theme='dark'] .hotspot-master:hover .hs-pulse {
+  background: rgba(89, 162, 140, 0.35);
   border-color: var(--primary);
   box-shadow:
-    0 0 0 5px rgba(89, 162, 140, 0.2),
+    0 0 0 5px rgba(89, 162, 140, 0.25),
     0 6px 22px rgba(89, 162, 140, 0.5);
 }
-[data-theme='dark'] .hotspot.ativo .hs-pulse {
-  background: var(--primary);
-  border-color: var(--primary);
-  box-shadow:
-    0 0 0 4px rgba(89, 162, 140, 0.4),
-    0 0 18px rgba(89, 162, 140, 0.7),
-    0 4px 18px rgba(89, 162, 140, 0.6);
-}
+[data-theme='dark'] .hotspot.ativo .hs-pulse,
 [data-theme='dark'] .hotspot-master.ativo .hs-pulse {
   background: var(--primary);
   border-color: var(--primary);
+  color: #fff;
   box-shadow:
-    0 0 0 5px rgba(89, 162, 140, 0.4),
-    0 0 24px rgba(89, 162, 140, 0.7),
-    0 4px 14px rgba(0, 0, 0, 0.4);
+    0 0 0 4px rgba(89, 162, 140, 0.4),
+    0 0 18px rgba(89, 162, 140, 0.75),
+    0 4px 18px rgba(89, 162, 140, 0.6);
 }
 [data-theme='dark'] .hotspot-master.ativo .hs-trilho {
   background: linear-gradient(90deg, var(--primary), rgba(89, 162, 140, 0.6));
@@ -760,6 +756,41 @@ body.drawer-fechado #topbar {
 }
 
 /* ---------- Hotspot master: pino pulsante + linha + nome do padrão ---------- */
+/* Light premium — destaque mais forte no estado normal, mesmo 40px */
+.hotspot .hs-pulse,
+.hotspot-master .hs-pulse {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  color: var(--primary);
+  text-shadow: none;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.18),
+    0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+.hotspot:hover .hs-pulse,
+.hotspot-master:hover .hs-pulse {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow:
+    0 0 0 5px rgba(27, 82, 68, 0.2),
+    0 6px 22px rgba(27, 82, 68, 0.4);
+}
+.hotspot.ativo .hs-pulse,
+.hotspot-master.ativo .hs-pulse {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow:
+    0 0 0 4px rgba(27, 82, 68, 0.4),
+    0 0 18px rgba(27, 82, 68, 0.6),
+    0 4px 18px rgba(27, 82, 68, 0.55);
+}
+.hotspot .hs-pulse svg,
+.hotspot-master .hs-pulse svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+/* Unificado com os hotspots por zona: mesmo design e tamanho em todas as cenas */
 .hotspot-master {
   padding: 22px;
   z-index: 6;
@@ -768,59 +799,32 @@ body.drawer-fechado #topbar {
   gap: 14px;
 }
 .hotspot-master .hs-pulse {
-  width: 54px;
-  height: 54px;
-  background: rgba(255, 255, 255, 0.24);
-  border: 2px solid rgba(255, 255, 255, 0.92);
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  color: #fff;
   box-shadow:
     0 0 0 0 rgba(255, 255, 255, 0.5),
     0 4px 14px rgba(0, 0, 0, 0.28);
-  animation: hsPulsarMaster 1.8s infinite;
+  animation: hsPulsar 1.8s infinite;
 }
 .hotspot-master.ativo .hs-pulse {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
   animation:
-    hsPulsarMaster 1s infinite,
-    brilhoMasterSelecionado 1.5s ease-in-out infinite;
+    hsPulsar 1.2s infinite,
+    brilhoSelecionado 1.5s ease-in-out infinite;
   box-shadow:
     0 0 0 5px rgba(27, 82, 68, 0.4),
-    0 0 24px rgba(27, 82, 68, 0.6),
+    0 0 18px rgba(27, 82, 68, 0.6),
     0 4px 14px rgba(0, 0, 0, 0.28);
 }
-@keyframes brilhoMasterSelecionado {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 5px rgba(27, 82, 68, 0.4),
-      0 0 18px rgba(27, 82, 68, 0.5),
-      0 4px 14px rgba(0, 0, 0, 0.28);
-  }
-  50% {
-    box-shadow:
-      0 0 0 10px rgba(27, 82, 68, 0.25),
-      0 0 36px rgba(27, 82, 68, 0.7),
-      0 4px 14px rgba(0, 0, 0, 0.28);
-  }
-}
 .hotspot-master .hs-pulse svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
-}
-@keyframes hsPulsarMaster {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 0 rgba(255, 255, 255, 0.5),
-      0 4px 14px rgba(0, 0, 0, 0.28);
-  }
-  70% {
-    box-shadow:
-      0 0 0 14px rgba(255, 255, 255, 0),
-      0 4px 14px rgba(0, 0, 0, 0.28);
-  }
 }
 .hotspot-master.ativo .hs-trilho {
   background: linear-gradient(90deg, var(--primary), rgba(27, 82, 68, 0.6));
@@ -2215,12 +2219,12 @@ input:focus-visible,
     gap: 10px;
   }
   .hotspot-master .hs-pulse {
-    width: 48px;
-    height: 48px;
+    width: 34px;
+    height: 34px;
   }
   .hotspot-master .hs-pulse svg {
-    width: 22px;
-    height: 22px;
+    width: 15px;
+    height: 15px;
   }
   .hs-trilho {
     max-width: 90px;
@@ -2386,12 +2390,12 @@ input:focus-visible,
     gap: 6px;
   }
   .hotspot-master .hs-pulse {
-    width: 42px;
-    height: 42px;
+    width: 30px;
+    height: 30px;
   }
   .hotspot-master .hs-pulse svg {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
   }
   .hs-nome {
     font-size: 13px;
@@ -3133,134 +3137,106 @@ body.modo-foco #topbar {
   }
 }
 
-/* ---------- Casinha de ambientes (rodapé central) ---------- */
+/* ---------- Botão único "Selecionar ambiente" (rodapé central) ---------- */
 #envBar {
   position: fixed;
   left: 50%;
   bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  z-index: 40;
   pointer-events: none;
-  opacity: 0.96;
-  transition:
-    opacity 0.3s var(--ease-out),
-    transform 0.3s var(--ease-out);
 }
 #envBar > * {
   pointer-events: auto;
 }
-@media (hover: none) and (pointer: coarse) {
-  #envBar {
-    opacity: 1;
-  }
-}
-/* Some quando o menu de texturas está aberto (não atrapalha a escolha). */
-body:not(.drawer-fechado) #envBar {
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 14px);
-}
-
-/* Botão principal (casinha) em destaque no centro inferior. */
-.envbar-fab {
-  position: relative;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: none;
+.envbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 8px 0 6px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  color: var(--primary);
+  font-family: inherit;
   cursor: pointer;
-  background: linear-gradient(135deg, var(--green-700), var(--primary));
-  color: #fff;
-  font-size: 22px;
-  display: grid;
-  place-items: center;
   box-shadow:
-    0 10px 26px rgba(27, 82, 68, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    0 12px 34px rgba(27, 82, 68, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
   transition:
     transform 0.25s var(--ease-spring),
     box-shadow 0.25s,
-    background 0.2s;
+    background 0.2s,
+    border-color 0.2s;
 }
-.envbar-fab::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
+.envbar-ico {
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  border: 2px solid rgba(27, 82, 68, 0.35);
-  animation: fabPulse 2.2s ease-in-out infinite;
-  pointer-events: none;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--green-700), var(--primary));
+  box-shadow:
+    0 4px 12px rgba(27, 82, 68, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
-@keyframes fabPulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.16);
-    opacity: 0;
-  }
-}
-.envbar-fab:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 14px 34px rgba(27, 82, 68, 0.52);
-}
-.envbar-fab:active {
-  transform: scale(0.93);
-}
-@media (prefers-reduced-motion: reduce) {
-  .envbar-fab::after {
-    animation: none;
-  }
-}
-
-/* Rótulo ao lado da casinha. */
-.envbar-txt {
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 99px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(14px) saturate(150%);
-  -webkit-backdrop-filter: blur(14px) saturate(150%);
-  color: var(--primary);
-  font-family: inherit;
-  font-size: 0.72rem;
+.envbar-label {
+  font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.14em;
-  cursor: pointer;
   white-space: nowrap;
-  box-shadow: 0 8px 24px rgba(27, 82, 68, 0.16);
-  transition:
-    background 0.2s,
-    transform 0.2s var(--ease-spring),
-    box-shadow 0.2s;
 }
-.envbar-txt:hover {
-  background: rgba(255, 255, 255, 0.85);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 28px rgba(27, 82, 68, 0.22);
+.envbar-chev {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  color: var(--primary);
+  opacity: 0.8;
+  transition: transform 0.3s var(--ease);
 }
-.envbar-txt:active {
-  transform: scale(0.97);
+.envbar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(27, 82, 68, 0.32);
+}
+.envbar-btn:hover .envbar-chev {
+  transform: translateY(-2px);
+}
+.envbar-btn:active {
+  transform: scale(0.96);
+}
+[data-theme='dark'] .envbar-btn {
+  background: rgba(28, 35, 32, 0.72);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--txt);
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+[data-theme='dark'] .envbar-chev {
+  color: var(--txt);
+}
+@media (hover: none) and (pointer: coarse) {
+  .envbar-btn {
+    height: 50px;
+  }
 }
 @media (max-width: 560px) {
   #envBar {
     bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   }
-  .envbar-fab {
-    width: 52px;
-    height: 52px;
-    font-size: 20px;
+  .envbar-btn {
+    height: 44px;
   }
-  .envbar-txt {
-    height: 36px;
-    padding: 0 12px;
-    font-size: 0.66rem;
+  .envbar-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
   }
 }
 

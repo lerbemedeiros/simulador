@@ -47,4 +47,7 @@ playwright/.cache/
 tmp/
 temp/
 
+# vercel
+.vercel
+
 

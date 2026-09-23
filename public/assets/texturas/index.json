@@ -1,0 +1,401 @@
+[
+  {
+    "id": "Amantea_Tatto",
+    "arquivo": "Amantea_Tatto.jpg",
+    "nome": "Amantea Tatto",
+    "categoria": "g1",
+    "acabamento": "Tatto"
+  },
+  {
+    "id": "Argento_Rust",
+    "arquivo": "Argento_Rust.jpg",
+    "nome": "Argento Rust",
+    "categoria": "g4",
+    "acabamento": "Rust"
+  },
+  {
+    "id": "Azul_Galeno",
+    "arquivo": "Azul_Galeno.jpg",
+    "nome": "Azul Galeno Micro",
+    "categoria": "g3",
+    "acabamento": "Micro",
+    "novo": true
+  },
+  {
+    "id": "Azul_TX",
+    "arquivo": "Azul_TX.jpg",
+    "nome": "Azul TX",
+    "categoria": "g2",
+    "acabamento": "TX"
+  },
+  {
+    "id": "Azul_Vel",
+    "arquivo": "Azul_Vel.jpg",
+    "nome": "Azul Vel",
+    "categoria": "g3",
+    "acabamento": "Vel"
+  },
+  {
+    "id": "Barrique_Tatto",
+    "arquivo": "Barrique_Tatto.jpg",
+    "nome": "Barrique Tatto",
+    "categoria": "g1",
+    "acabamento": "Tatto"
+  },
+  {
+    "id": "Baru_Micro",
+    "arquivo": "Baru_Micro.jpg",
+    "nome": "Baru Micro",
+    "categoria": "g1",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Basalto_Rust",
+    "arquivo": "Basalto_Rust.jpg",
+    "nome": "Basalto Rust",
+    "categoria": "g5",
+    "acabamento": "Rust"
+  },
+  {
+    "id": "Bege_TX",
+    "arquivo": "Bege_TX.jpg",
+    "nome": "Bege TX",
+    "categoria": "g2",
+    "acabamento": "TX"
+  },
+  {
+    "id": "Branco_Design",
+    "arquivo": "Branco_Design.jpg",
+    "nome": "Branco Design",
+    "categoria": "g2",
+    "acabamento": "Design"
+  },
+  {
+    "id": "Branco_Lsf",
+    "arquivo": "Branco_Lsf.jpg",
+    "nome": "Branco Lsf",
+    "categoria": "g2",
+    "acabamento": "Lsf"
+  },
+  {
+    "id": "Branco_Micro",
+    "arquivo": "Branco_Micro.jpg",
+    "nome": "Branco Micro",
+    "categoria": "g2",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Branco_Vel",
+    "arquivo": "Branco_Vel.jpg",
+    "nome": "Branco Vel",
+    "categoria": "g2",
+    "acabamento": "Vel"
+  },
+  {
+    "id": "Cacau_Grann",
+    "arquivo": "Cacau_Grann.jpg",
+    "nome": "Cacau Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Carvalho-Japandi_Micro",
+    "arquivo": "Carvalho-Japandi_Micro.jpg",
+    "nome": "Carvalho Japandi Micro",
+    "categoria": "g1",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Carvalho-Treviso_Design",
+    "arquivo": "Carvalho-Treviso_Design.jpg",
+    "nome": "Carvalho Treviso Design",
+    "categoria": "g1",
+    "acabamento": "Design"
+  },
+  {
+    "id": "Castaine_Tatto",
+    "arquivo": "Castaine_Tatto.jpg",
+    "nome": "Castaine Tatto",
+    "categoria": "g1",
+    "acabamento": "Tatto"
+  },
+  {
+    "id": "Ceramik_Micro",
+    "arquivo": "Ceramik_Micro.jpg",
+    "nome": "Ceramik Micro",
+    "categoria": "g3",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Cerejeira_Clara_Grann",
+    "arquivo": "Cerejeira_Clara_Grann.jpg",
+    "nome": "Cerejeira Clara Grann",
+    "categoria": "g1",
+    "acabamento": "Grann",
+    "novo": true
+  },
+  {
+    "id": "Cerejeira_Natural_Grann",
+    "arquivo": "Cerejeira_Natural_Grann.jpg",
+    "nome": "Cerejeira Natural Grann",
+    "categoria": "g1",
+    "acabamento": "Grann",
+    "novo": true
+  },
+  {
+    "id": "Chiaro_Vel",
+    "arquivo": "Chiaro_Vel.jpg",
+    "nome": "Chiaro Vel",
+    "categoria": "g1",
+    "acabamento": "Vel"
+  },
+  {
+    "id": "Chumbo_Micro",
+    "arquivo": "Chumbo_Micro.jpg",
+    "nome": "Chumbo Micro",
+    "categoria": "g3",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Cinamomo_Grann",
+    "arquivo": "Cinamomo_Grann.jpg",
+    "nome": "Cinamomo Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Cromio_Vel",
+    "arquivo": "Cromio_Vel.jpg",
+    "nome": "Crômio Vel",
+    "categoria": "g4",
+    "acabamento": "Vel"
+  },
+  {
+    "id": "Desert_Vel",
+    "arquivo": "Desert_Vel.jpg",
+    "nome": "Desert Vel",
+    "categoria": "g2",
+    "acabamento": "Vel"
+  },
+  {
+    "id": "Dust_Alumi",
+    "arquivo": "Dust_Alumi.jpg",
+    "nome": "Dust Alumi",
+    "categoria": "g4",
+    "acabamento": "Alumi"
+  },
+  {
+    "id": "Faia_Grann",
+    "arquivo": "Faia_Grann.jpg",
+    "nome": "Faia Grann"
+  },
+  {
+    "id": "Falsia_Vel",
+    "arquivo": "Falsia_Vel.jpg",
+    "nome": "Falésia Vel",
+    "categoria": "g3",
+    "acabamento": "Vel"
+  },
+  {
+    "id": "Frassino-Almendra_Poro",
+    "arquivo": "Frassino-Almendra_Poro.jpg",
+    "nome": "Frassino Almendra Poro",
+    "categoria": "g1",
+    "acabamento": "Poro"
+  },
+  {
+    "id": "Freijo_Nativo_Grann",
+    "arquivo": "Freijo_Nativo_Grann.jpg",
+    "nome": "Freijó Nativo Grann",
+    "categoria": "g1",
+    "acabamento": "Grann",
+    "novo": true
+  },
+  {
+    "id": "Galiano_Grann",
+    "arquivo": "Galiano_Grann.jpg",
+    "nome": "Galiano Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Gengibre_Tatto",
+    "arquivo": "Gengibre_Tatto.jpg",
+    "nome": "Gengibre Tatto",
+    "categoria": "g1",
+    "acabamento": "Tatto"
+  },
+  {
+    "id": "Griseo_Grann",
+    "arquivo": "Griseo_Grann.jpg",
+    "nome": "Griseo Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Italian-Noce_Poro",
+    "arquivo": "Italian-Noce_Poro.jpg",
+    "nome": "Italian Noce Poro",
+    "categoria": "g1",
+    "acabamento": "Poro"
+  },
+  {
+    "id": "Jequitiba",
+    "arquivo": "Jequitiba.jpg",
+    "nome": "Jequitiba"
+  },
+  {
+    "id": "Jequitiba_Grann",
+    "arquivo": "Jequitiba_Grann.jpg",
+    "nome": "Jequitibá Brasil Grann",
+    "categoria": "g1",
+    "acabamento": "Grann",
+    "novo": true
+  },
+  {
+    "id": "Louro-Freij_Grann",
+    "arquivo": "Louro-Freij_Grann.jpg",
+    "nome": "Louro Freijó Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Louro-Preto_Grann",
+    "arquivo": "Louro-Preto_Grann.jpg",
+    "nome": "Louro Preto Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Millennial_Micro",
+    "arquivo": "Millennial_Micro.jpg",
+    "nome": "Millennial Micro",
+    "categoria": "g3",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Mogno_Imperial",
+    "arquivo": "Mogno_Imperial.jpg",
+    "nome": "Mogno Imperial Grann",
+    "categoria": "g1",
+    "acabamento": "Grann",
+    "novo": true
+  },
+  {
+    "id": "Nogal-Artezzano_Grann",
+    "arquivo": "Nogal-Artezzano_Grann.jpg",
+    "nome": "Nogal Artezzano Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Nogal-Malaga_Design",
+    "arquivo": "Nogal-Malaga_Design.jpg",
+    "nome": "Nogal Málaga Design",
+    "categoria": "g1",
+    "acabamento": "Design"
+  },
+  {
+    "id": "Nogal-Sevilha_Poro",
+    "arquivo": "Nogal-Sevilha_Poro.jpg",
+    "nome": "Nogal Sevilha Poro",
+    "categoria": "g1",
+    "acabamento": "Poro"
+  },
+  {
+    "id": "Parquet_Grann",
+    "arquivo": "Parquet_Grann.jpg",
+    "nome": "Parquet Grann"
+  },
+  {
+    "id": "Pecan_Vel",
+    "arquivo": "Pecan_Vel.jpg",
+    "nome": "Pecan Vel",
+    "categoria": "g2",
+    "acabamento": "Vel"
+  },
+  {
+    "id": "pera_Micro",
+    "arquivo": "pera_Micro.jpg",
+    "nome": "Ópera Micro",
+    "categoria": "g3",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Peroba_Tatto",
+    "arquivo": "Peroba_Tatto.jpg",
+    "nome": "Peroba Tatto",
+    "categoria": "g1",
+    "acabamento": "Tatto"
+  },
+  {
+    "id": "Plomo_Alumi",
+    "arquivo": "Plomo_Alumi.jpg",
+    "nome": "Plomo Alumi",
+    "categoria": "g4",
+    "acabamento": "Alumi"
+  },
+  {
+    "id": "Preto_TX",
+    "arquivo": "Preto_TX.jpg",
+    "nome": "Preto TX",
+    "categoria": "g3",
+    "acabamento": "TX"
+  },
+  {
+    "id": "Provence_Tatto",
+    "arquivo": "Provence_Tatto.jpg",
+    "nome": "Provence Tatto",
+    "categoria": "g1",
+    "acabamento": "Tatto"
+  },
+  {
+    "id": "Roble-Catedral_Grann",
+    "arquivo": "Roble-Catedral_Grann.jpg",
+    "nome": "Roble Catedral Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Solanum_Grann",
+    "arquivo": "Solanum_Grann.jpg",
+    "nome": "Solanum Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "superwhite",
+    "arquivo": "superwhite.jpg",
+    "nome": "Super White Micro",
+    "categoria": "g3",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Tangar_Micro",
+    "arquivo": "Tangar_Micro.jpg",
+    "nome": "Tangará Micro",
+    "categoria": "g3",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Veneer_Grann",
+    "arquivo": "Veneer_Grann.jpg",
+    "nome": "Veneer Grann",
+    "categoria": "g1",
+    "acabamento": "Grann"
+  },
+  {
+    "id": "Verti_Micro",
+    "arquivo": "Verti_Micro.jpg",
+    "nome": "Verti Micro",
+    "categoria": "g3",
+    "acabamento": "Micro"
+  },
+  {
+    "id": "Volakas_Micro",
+    "arquivo": "Volakas_Micro.jpg",
+    "nome": "Volakas Micro",
+    "categoria": "g5",
+    "acabamento": "Micro"
+  }
+]

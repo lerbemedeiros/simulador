@@ -26,11 +26,6 @@ coverage/
 Thumbs.db
 desktop.ini
 
-# generated texturas (regerado via npm run build:texturas)
-public/assets/texturas/thumbs/
-public/assets/texturas/diffuse/
-public/assets/texturas/index.json
-
 # logs
 npm-debug.log*
 yarn-debug.log*

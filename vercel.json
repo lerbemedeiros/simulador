@@ -1,7 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
-  "buildCommand": "npm run build:vite",
+  "installCommand": "npm ci",
+  "buildCommand": "npx vite build && node -e \"import('fs').then(fs=>{try{fs.rmSync('dist/public',{recursive:true,force:true})}catch(e){}})\"",
   "outputDirectory": "dist",
   "cleanUrls": true
 }

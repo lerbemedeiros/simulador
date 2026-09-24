@@ -54,25 +54,29 @@ export class UI {
     this._texturaAtivaId = null;
     container.innerHTML = `
       <div class="sheet-handle" aria-hidden="true"></div>
-      <img class="drawer-logo" src="assets/images/logo.svg" alt="Simulador de Ambientes">
-      <div class="drawer-search">
-        <span class="search-ico" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
-        <input id="buscaTex" type="search" placeholder="Buscar padrão..." autocomplete="off" aria-label="Buscar textura">
-      </div>
-      <div class="acabamentos-bar-wrap">
-        <button class="cat-arrow" id="catLeft" aria-label="Anterior"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
-        <div class="chips-scroll" id="chipsScroll">
-          <div class="acabamentos-bar" id="chipsBar" role="tablist" aria-label="Filtrar por categoria"></div>
-          <span class="chips-fade chips-fade-l" aria-hidden="true"></span>
-          <span class="chips-fade chips-fade-r" aria-hidden="true"></span>
+      <div class="drawer-header" id="drawerHeader">
+        <img class="drawer-logo" src="assets/images/logo.svg" alt="Simulador de Ambientes">
+        <div class="drawer-search">
+          <span class="search-ico" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input id="buscaTex" type="search" placeholder="Buscar padrão...  ( / )" autocomplete="off" aria-label="Buscar textura">
+          <button id="buscaClear" class="drawer-search-clear" type="button" aria-label="Limpar busca" hidden><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
         </div>
-        <button class="cat-arrow" id="catRight" aria-label="Próximo"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+        <div class="acabamentos-bar-wrap">
+          <button class="cat-arrow" id="catLeft" aria-label="Anterior"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+          <div class="chips-scroll" id="chipsScroll">
+            <div class="acabamentos-bar" id="chipsBar" role="tablist" aria-label="Filtrar por categoria"></div>
+            <span class="chips-fade chips-fade-l" aria-hidden="true"></span>
+            <span class="chips-fade chips-fade-r" aria-hidden="true"></span>
+          </div>
+          <button class="cat-arrow" id="catRight" aria-label="Próximo"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+        </div>
+        <div class="cat-status-bar" id="catStatus" aria-live="polite"></div>
       </div>
-      <div class="cat-status-bar" id="catStatus" aria-live="polite"></div>
       <div class="grade" id="grade" role="grid" aria-label="Grade de texturas"></div>
       <div class="drawer-more">
         <span class="drawer-foot-hint"><span class="dot-live"></span> Toque nos pontos pulsantes</span>
       </div>
+      <button id="drawerTopBtn" class="drawer-top-btn" type="button" aria-label="Voltar ao topo" title="Voltar ao topo (Home)" hidden><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
     `;
     this.gradeEl = container.querySelector('#grade');
     this.statusEl = container.querySelector('#catStatus');
@@ -82,14 +86,35 @@ export class UI {
     this.catRightEl = container.querySelector('#catRight');
     this.drawer = container;
     this.buscaEl = container.querySelector('#buscaTex');
+    this.buscaClearEl = container.querySelector('#buscaClear');
+    this.progressFillEl = container.querySelector('#drawerProgressFill');
+    this.topBtn = container.querySelector('#drawerTopBtn');
+    this.headerEl = container.querySelector('#drawerHeader');
 
     this.backdrop = document.querySelector('#backdrop');
     if (this.backdrop) this.backdrop.addEventListener('click', () => this.setAberto(false));
     this._sheetDrag(container);
+    this._setupScrollUX();
+    this._setupTeclado();
+    const _syncClear = () => {
+      const has = !!this.buscaEl.value.trim();
+      if (this.buscaClearEl) this.buscaClearEl.hidden = !has;
+    };
     this.buscaEl.addEventListener('input', () => {
       this.busca = this.buscaEl.value.trim().toLowerCase();
+      _syncClear();
       this._buildGrade();
     });
+    _syncClear();
+    if (this.buscaClearEl) {
+      this.buscaClearEl.addEventListener('click', () => {
+        this.buscaEl.value = '';
+        this.busca = '';
+        _syncClear();
+        this._buildGrade();
+        this.buscaEl.focus();
+      });
+    }
     // Setas premium: navegam entre categorias (inclui Favoritos) e
     // apenas mudam o filtro — o usuário escolhe a textura no menu.
     const _catsOrdenadas = () => {
@@ -119,6 +144,269 @@ export class UI {
 
     this._buildFiltros();
     this._buildGrade();
+  }
+
+  // Header fixo + rolagem abaixo (nunca atrás) + botão topo + scroll sedoso
+  _setupScrollUX() {
+    const el = this.gradeEl;
+    const panel = this.drawer;
+    if (!el) return;
+    const progressFill = this.progressFillEl;
+    const topBtn = this.topBtn;
+    this._scrollEl = el;
+    let ticking = false;
+    const atualizar = () => {
+      ticking = false;
+      const max = el.scrollHeight - el.clientHeight;
+      const pct = max > 0 ? el.scrollTop / max : 0;
+      if (progressFill) progressFill.style.width = `${Math.round(pct * 100)}%`;
+      const canTop = el.scrollTop > 8;
+      const canBottom = el.scrollTop + el.clientHeight < el.scrollHeight - 8;
+      if (panel) {
+        panel.classList.toggle('can-scroll-top', canTop);
+        panel.classList.toggle('can-scroll-bottom', canBottom);
+      }
+      el.classList.toggle('can-scroll-top', canTop);
+      el.classList.toggle('can-scroll-bottom', canBottom);
+      if (this.headerEl) this.headerEl.classList.toggle('is-scrolled', canTop);
+      const showTop = el.scrollTop > 320;
+      if (topBtn) {
+        const shouldShow = showTop && panel && !panel.classList.contains('redimensionando');
+        if (shouldShow && topBtn.hidden) {
+          topBtn.hidden = false;
+          requestAnimationFrame(() => topBtn.classList.add('visivel'));
+        } else if (!shouldShow && !topBtn.hidden) {
+          topBtn.classList.remove('visivel');
+          setTimeout(() => {
+            if (!topBtn.classList.contains('visivel')) topBtn.hidden = true;
+          }, 220);
+        }
+      }
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(atualizar);
+      }
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    setTimeout(atualizar, 80);
+    if (topBtn) {
+      topBtn.addEventListener('click', () => {
+        el.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          if (this.buscaEl) this.buscaEl.focus({ preventScroll: true });
+        }, 360);
+      });
+    }
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Home' && (e.target === el || el.contains(e.target))) {
+        if (!e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          el.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    });
+    this._buscaAtalho = e => {
+      if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (!this.aberto) return;
+      e.preventDefault();
+      this.buscaEl.focus();
+      this.buscaEl.select();
+    };
+    window.addEventListener('keydown', this._buscaAtalho);
+    this._suavizarWheel(el);
+  }
+
+  _suavizarWheel(el) {
+    const mm = typeof window.matchMedia === 'function' ? window.matchMedia.bind(window) : null;
+    if (mm && mm('(prefers-reduced-motion: reduce)').matches) {
+      el.style.scrollBehavior = 'smooth';
+      return;
+    }
+    const isCoarse = !!(mm && mm('(hover: none) and (pointer: coarse)').matches);
+    if (isCoarse) {
+      el.style.scrollBehavior = 'smooth';
+      return;
+    }
+    let target = el.scrollTop;
+    let current = target;
+    let raf = null;
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+    const animate = () => {
+      const diff = target - current;
+      if (Math.abs(diff) < 0.3) {
+        current = target;
+        el.scrollTop = current;
+        raf = null;
+        return;
+      }
+      // 0.08 = mais inércia/fluidez que 0.14 (suaviza sem travar)
+      current += diff * 0.08;
+      el.scrollTop = current;
+      raf = requestAnimationFrame(animate);
+    };
+    const syncFromUser = () => {
+      if (raf) return;
+      target = current = el.scrollTop;
+    };
+    el.addEventListener('scroll', syncFromUser, { passive: true });
+    el.addEventListener(
+      'wheel',
+      e => {
+        if (e.ctrlKey || e.metaKey) return;
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+        const max = el.scrollHeight - el.clientHeight;
+        if (max <= 0) return;
+        const isTrackpad = Math.abs(e.deltaY) < 24 && e.deltaMode === 0;
+        if (isTrackpad) return;
+        const atTop = el.scrollTop <= 0 && e.deltaY < 0;
+        const atBottom = el.scrollTop >= max - 1 && e.deltaY > 0;
+        if (atTop || atBottom) return;
+        e.preventDefault();
+        let delta = e.deltaY;
+        if (e.deltaMode === 1) delta *= 16;
+        else if (e.deltaMode === 2) delta *= el.clientHeight;
+        // 120px max por tick = menos salto que 180, mais sedoso
+        delta = clamp(delta, -120, 120);
+        target = clamp(target + delta, 0, max);
+        if (!raf) {
+          current = el.scrollTop;
+          raf = requestAnimationFrame(animate);
+        }
+      },
+      { passive: false }
+    );
+    el.addEventListener('pointerdown', syncFromUser);
+    el.style.scrollBehavior = 'smooth';
+  }
+
+  _setupTeclado() {
+    const el = this.drawer;
+    if (!el) return;
+    this._gradeFocusIdx = -1;
+    const isTyping = () => {
+      const a = document.activeElement;
+      return a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.isContentEditable);
+    };
+    const catsOrdenadas = () => {
+      if (!this.chipsBar) return [];
+      const cats = [...this.chipsBar.querySelectorAll('[data-cat]')].map(b => b.dataset.cat);
+      if (this.chipsBar.querySelector('[data-esp="favs"]')) cats.push('__favs');
+      return cats;
+    };
+    const focarIndice = idx => {
+      const itens = [...this.gradeEl.querySelectorAll('.item')];
+      if (!itens.length) return;
+      idx = Math.max(0, Math.min(itens.length - 1, idx));
+      this._gradeFocusIdx = idx;
+      const alvo = itens[idx];
+      itens.forEach((it, i) => it.setAttribute('tabindex', i === idx ? '0' : '-1'));
+      alvo.focus({ preventScroll: true });
+      alvo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+    const itensVisiveis = () => [...this.gradeEl.querySelectorAll('.item')];
+    el.addEventListener('keydown', e => {
+      if (!this.aberto) return;
+      const key = e.key;
+      const active = document.activeElement;
+      const inSearch = active === this.buscaEl;
+      const inGrade = this.gradeEl.contains(active) || (active && active.classList.contains('item'));
+      const inChips = this.chipsBar && this.chipsBar.contains(active);
+      if (key === 'Escape') {
+        if (inSearch && this.buscaEl.value.trim()) {
+          e.preventDefault();
+          this.buscaEl.value = '';
+          this.busca = '';
+          if (this.buscaClearEl) this.buscaClearEl.hidden = true;
+          this._buildGrade();
+          this.buscaEl.focus();
+          return;
+        }
+        if (!inSearch) {
+          e.preventDefault();
+          this.setAberto(false);
+          const burger = document.querySelector('#hamburger');
+          if (burger) burger.focus();
+          return;
+        }
+      }
+      if (key === 'ArrowDown' || key === 'ArrowUp') {
+        if ((inSearch || inChips) && key === 'ArrowDown') {
+          const itens = itensVisiveis();
+          if (itens.length) {
+            e.preventDefault();
+            const idxAtivo = itens.findIndex(it => it.classList.contains('ativo'));
+            focarIndice(idxAtivo >= 0 ? idxAtivo : 0);
+          }
+          return;
+        }
+        if (inGrade) {
+          e.preventDefault();
+          const itens = itensVisiveis();
+          let idx = itens.indexOf(active);
+          if (idx === -1) idx = this._gradeFocusIdx;
+          if (key === 'ArrowDown') focarIndice(idx + 1);
+          else focarIndice(idx - 1);
+          return;
+        }
+      }
+      if (inGrade) {
+        if (key === 'Home') {
+          e.preventDefault();
+          focarIndice(0);
+        } else if (key === 'End') {
+          e.preventDefault();
+          focarIndice(itensVisiveis().length - 1);
+        } else if (key === 'Enter' || key === ' ') {
+          if (active && active.classList.contains('item')) {
+            e.preventDefault();
+            active.click();
+          }
+        } else if (key === 'PageDown') {
+          e.preventDefault();
+          const cur = itensVisiveis().indexOf(active);
+          focarIndice(cur + 5);
+        } else if (key === 'PageUp') {
+          e.preventDefault();
+          const cur = itensVisiveis().indexOf(active);
+          focarIndice(cur - 5);
+        }
+      }
+    });
+    window.addEventListener('keydown', e => {
+      if (!this.aberto) return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (isTyping()) return;
+      if (!/^[1-6]$/.test(e.key)) return;
+      const cats = catsOrdenadas();
+      const idx = Number(e.key) - 1;
+      if (idx < 0 || idx >= cats.length) return;
+      e.preventDefault();
+      const alvo = cats[idx];
+      if (alvo === '__favs') this.setEspecial('favs');
+      else this.setFiltro(alvo);
+      setTimeout(() => {
+        const itens = itensVisiveis();
+        if (itens.length) focarIndice(0);
+      }, 60);
+    });
+    this._focarIndice = focarIndice;
+  }
+
+  _syncGradeTabIndex() {
+    const itens = [...this.gradeEl.querySelectorAll('.item')];
+    if (!itens.length) {
+      this._gradeFocusIdx = -1;
+      return;
+    }
+    const idxAtivo = itens.findIndex(it => it.classList.contains('ativo'));
+    const alvoIdx = idxAtivo >= 0 ? idxAtivo : 0;
+    itens.forEach((it, i) => it.setAttribute('tabindex', i === alvoIdx ? '0' : '-1'));
+    this._gradeFocusIdx = alvoIdx;
   }
 
   // Arrastar a alça redimensiona o bottom sheet no mobile (35%–78% da tela).
@@ -341,7 +629,7 @@ export class UI {
           this._io.unobserve(img);
         }
       },
-      { root: this.drawer, rootMargin: '200px 0px', threshold: 0.01 }
+      { root: this.gradeEl || this.drawer, rootMargin: '200px 0px', threshold: 0.01 }
     );
   }
 
@@ -449,6 +737,19 @@ export class UI {
         }
       });
     });
+    this._syncGradeTabIndex();
+    const _scr = this.gradeEl;
+    if (_scr) {
+      const max = _scr.scrollHeight - _scr.clientHeight;
+      const pct = max > 0 ? _scr.scrollTop / max : 0;
+      if (this.progressFillEl) this.progressFillEl.style.width = `${Math.round(pct * 100)}%`;
+      _scr.classList.toggle('can-scroll-bottom', _scr.scrollTop + _scr.clientHeight < _scr.scrollHeight - 8);
+      if (this.drawer)
+        this.drawer.classList.toggle(
+          'can-scroll-bottom',
+          _scr.scrollTop + _scr.clientHeight < _scr.scrollHeight - 8
+        );
+    }
   }
 
   // Último toque vence: se chegar um toque no meio de uma troca, ele
@@ -536,8 +837,8 @@ export class UI {
       const badge = el.querySelector('.item-badge');
       if (badge) badge.innerHTML = '<i class="fa-solid fa-check"></i> Em uso';
       this._texturaAtivaId = el.dataset.id;
-      // Salva scroll para restaurar ao reabrir
-      if (this.drawer) this._gradeScrollTop = this.drawer.scrollTop;
+      if (this._scrollEl || this.gradeEl) this._gradeScrollTop = (this._scrollEl || this.gradeEl).scrollTop;
+      else if (this.drawer) this._gradeScrollTop = this.drawer.scrollTop;
     }
   }
 
@@ -548,8 +849,10 @@ export class UI {
   }
 
   setAberto(aberto) {
-    // Ao fechar, salva scroll para restaurar depois
-    if (!aberto && this.drawer) {
+    const _scr = this._scrollEl || this.gradeEl;
+    if (!aberto && _scr) {
+      this._gradeScrollTop = _scr.scrollTop;
+    } else if (!aberto && this.drawer) {
       this._gradeScrollTop = this.drawer.scrollTop;
     }
     this.aberto = aberto;
@@ -570,14 +873,15 @@ export class UI {
         setTimeout(() => {
           this._atualizarSetas();
           this._rolarChipAtivo();
-          // Restaura scroll na textura selecionada — mantém posição entre aberturas
+          const _scr = this._scrollEl || this.gradeEl;
           const salvo = this._gradeScrollTop;
-          if (salvo != null && salvo > 0) {
-            this.drawer.scrollTop = salvo;
+          if (salvo != null && salvo > 0 && _scr) {
+            _scr.scrollTop = salvo;
           } else {
             const ativo = this.gradeEl && this.gradeEl.querySelector('.item.ativo');
             if (ativo) ativo.scrollIntoView({ block: 'nearest', inline: 'nearest' });
           }
+          if (_scr) _scr.dispatchEvent(new Event('scroll'));
         }, 120);
       } else {
         this.drawer.classList.remove('menu-in');

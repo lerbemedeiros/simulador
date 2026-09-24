@@ -12,7 +12,7 @@ import { diagPush } from './diag.js';
 import { Compositor } from './compositor.js';
 import { Interaction, ZONA_TODAS } from './interaction.js';
 import { UI } from './ui.js';
-import { iniciarTour } from './tour.js';
+import { iniciarTour, abrirCentralAjuda } from './tour.js';
 import { textoHashComposicao, aplicarHashComposicao } from './hash.js';
 
 const IS_DEV =
@@ -627,10 +627,13 @@ async function init() {
   });
   dockFull.addEventListener('click', alternarTelaCheia);
 
-  // ---- Ajuda: reabre o tour ----
-  document.querySelector('#dockAjuda').addEventListener('click', () => {
-    iniciarTour(ui, { forcar: true }).catch(() => {});
-  });
+  // ---- Ajuda: Central premium (cobre 100% dos recursos) ----
+  const dockAjudaBtn = document.querySelector('#dockAjuda');
+  if (dockAjudaBtn) {
+    dockAjudaBtn.addEventListener('click', () => {
+      abrirCentralAjuda(ui);
+    });
+  }
 
   // ---- Seletor de ambientes (Mudar ambiente) ----
   const envModal = document.querySelector('#envModal');

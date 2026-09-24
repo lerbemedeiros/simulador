@@ -668,19 +668,27 @@ async function init() {
       const cb = Date.now();
       const base = location.href.split('?')[0].split('#')[0];
       const novo = `${base}?t=${cb}#env=${envId}`;
-      // Força SW a buscar config fresca na próxima carga
+      // Força SW a buscar config fresca na próxima carga — apaga versões antigas (v8, v9...)
       if ('caches' in window) {
         caches
           .keys()
           .then(keys =>
             keys.forEach(k => {
-              if (k !== 'simulador-v8') caches.delete(k);
+              if (k.startsWith('simulador-') && k !== 'simulador-v9') caches.delete(k);
             })
           )
           .catch(() => {});
+        // também força SW a atualizar imediatamente se houver nova versão
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+        }
       }
       // Query ?t= muda a URL → navegador recarrega automaticamente (sem race).
-      location.href = novo;
+      // Usa replace + reload para garantir que o preloader não fique preso em SW stale
+      try {
+        history.replaceState(null, '', novo);
+      } catch (_) {}
+      location.reload();
     } else {
       ui.toast(`Ambiente ${e.nome} carregado`, 'ok');
     }

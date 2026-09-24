@@ -4,23 +4,15 @@
 // - Texturas/diffuse: stale-while-revalidate com limite 80 entradas
 // - Versão bumpada a cada build (simulador-v2) — caches antigos purgados
 // ============================================================
-const VERSAO = 'simulador-v8';
+const VERSAO = 'simulador-v9';
 const NUCLEO = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './css/style.css',
-  './js/main.js',
-  './js/ui.js',
-  './js/loader.js',
-  './js/compositor.js',
-  './js/interaction.js',
-  './js/config.js',
+  // css/js com hash no build (ex: assets/index-*.js) não entram aqui — são cacheados dinamicamente no fetch
   './assets/ambientes/quarto_01/mascaras/mask_127_63_191.png',
   './assets/ambientes/quarto_01/mascaras/mask_159_64_64.png',
   './assets/ambientes/quarto_01/mascaras/mask_191_64_0.png',
-  './js/tour.js',
-  './js/diag.js',
   './assets/images/logo.svg',
   './assets/images/logo-branco.svg',
   './assets/images/icon-192.png',
@@ -43,7 +35,10 @@ self.addEventListener('install', e => {
   e.waitUntil(
     caches
       .open(VERSAO)
-      .then(c => c.addAll(NUCLEO))
+      .then(c =>
+        // tolerante: em prod vite gera assets com hash (css/style.css e js/main.js não existem) — não pode falhar install
+        Promise.allSettled(NUCLEO.map(u => c.add(u).catch(() => {})))
+      )
       .then(() => self.skipWaiting())
   );
 });
@@ -60,6 +55,27 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const u = new URL(e.request.url);
   if (e.request.method !== 'GET' || u.origin !== location.origin) return;
+
+  // Navegação / index.html: network-first — evita preloader infinito com index.html stale que aponta para hash antigo (vite)
+  if (
+    e.request.mode === 'navigate' ||
+    u.pathname === '/' ||
+    u.pathname.endsWith('/index.html') ||
+    u.searchParams.has('t')
+  ) {
+    e.respondWith(
+      fetch(e.request)
+        .then(r => {
+          if (r.ok) {
+            const copia = r.clone();
+            caches.open(VERSAO).then(c => c.put(e.request, copia));
+          }
+          return r;
+        })
+        .catch(() => caches.match(e.request).then(hit => hit || caches.match('./index.html')))
+    );
+    return;
+  }
 
   // Config e main: network-first para troca de ambiente refletir sem cache stale
   if (

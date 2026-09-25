@@ -703,7 +703,7 @@ async function init() {
       .map(
         e => `
       <button class="env-card ${e.id === AMB_ID ? 'ativo' : ''}" data-env="${e.id}" role="option" aria-selected="${e.id === AMB_ID}" type="button">
-        <img class="env-img" src="${e.imagem}" alt="${e.nome}" loading="lazy" decoding="async">
+        <img class="env-img" src="${e.thumb || e.imagem}" data-fallback="${e.imagem}" alt="${e.nome}" loading="lazy" decoding="async" onerror="if(this.dataset.fallback &amp;&amp; this.src !== this.dataset.fallback){this.src=this.dataset.fallback; this.onerror=null;}">
         <span class="env-nome"><i class="fa-solid ${e.icone}" aria-hidden="true"></i> ${e.nome}</span>
         <span class="env-check" aria-hidden="true"><i class="fa-solid fa-check"></i> Selecionado</span>
       </button>`

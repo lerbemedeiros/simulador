@@ -4,7 +4,7 @@
 
 /**
  * @typedef {{id:string,label:string,cor:[number,number,number],seed:[number,number],mascara:string,escala?:number,quad?:number[][],chapa?:{w:number,h:number},texturaRepeticao?:number,alturaChapa?:number}} Zona
- * @typedef {{id:string,nome:string,icone:string,imagem:string,width:number,height:number,chapa:{w:number,h:number},texturaRepeticao:number,camadas:{base:string,sombras:string,reflexos:string}|null,idMap:string|null,zonas:Zona[],padrao:string|null,padraoZona:Record<string,string>,indisponivel?:boolean}} Ambiente
+ * @typedef {{id:string,nome:string,icone:string,imagem:string,thumb?:string,width:number,height:number,chapa:{w:number,h:number},texturaRepeticao:number,camadas:{base:string,sombras:string,reflexos:string}|null,idMap:string|null,zonas:Zona[],padrao:string|null,padraoZona:Record<string,string>,indisponivel?:boolean}} Ambiente
  */
 
 function assert(cond, msg) {
@@ -73,6 +73,9 @@ export function validarAmbiente(amb) {
   assert(isString(amb.nome), `ambiente "${amb.id}" sem nome`);
   assert(isString(amb.icone), `ambiente "${amb.id}" sem icone`);
   assert(isString(amb.imagem), `ambiente "${amb.id}" sem imagem`);
+  if (amb.thumb !== undefined && amb.thumb !== null) {
+    assert(isString(amb.thumb), `ambiente "${amb.id}" thumb deve ser string se definido`);
+  }
   assert(isNumber(amb.width) && amb.width > 0, `ambiente "${amb.id}" width inválido`);
   assert(isNumber(amb.height) && amb.height > 0, `ambiente "${amb.id}" height inválido`);
   assert(amb.chapa && isNumber(amb.chapa.w) && isNumber(amb.chapa.h), `ambiente "${amb.id}" chapa inválida`);

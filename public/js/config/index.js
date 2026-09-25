@@ -33,6 +33,8 @@ export const AMBIENTES = Object.freeze({
 });
 
 // Derivados — gerados, não editáveis (exclui alias cozinha_01 para não duplicar card)
+// `thumb` é a imagem do card no seletor de ambientes (personalizável em assets/.../thumb/thumb.png).
+// Se não existir, o seletor faz fallback para `imagem` (base do modelo).
 export const AMBIENTES_DISPONIVEIS = Object.freeze(
   Object.fromEntries(
     Object.entries(AMBIENTES_RAW).map(([k, v]) => [
@@ -42,6 +44,7 @@ export const AMBIENTES_DISPONIVEIS = Object.freeze(
         nome: v.nome,
         icone: v.icone,
         imagem: v.imagem,
+        thumb: v.thumb || v.imagem,
         indisponivel: !!v.indisponivel,
       }),
     ])

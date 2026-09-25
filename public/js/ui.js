@@ -58,7 +58,8 @@ export class UI {
         <img class="drawer-logo" src="assets/images/logo.svg" alt="Simulador de Ambientes">
         <div class="drawer-search">
           <span class="search-ico" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
-          <input id="buscaTex" type="search" placeholder="Buscar padrão...  ( / )" autocomplete="off" aria-label="Buscar textura">
+          <input id="buscaTex" type="search" placeholder="Buscar por nome ou código" autocomplete="off" aria-label="Buscar textura por nome ou código" spellcheck="false">
+          <kbd class="search-kbd" aria-hidden="true">/</kbd>
           <button id="buscaClear" class="drawer-search-clear" type="button" aria-label="Limpar busca" hidden><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
         </div>
         <div class="acabamentos-bar-wrap">
@@ -224,28 +225,32 @@ export class UI {
   _suavizarWheel(el) {
     const mm = typeof window.matchMedia === 'function' ? window.matchMedia.bind(window) : null;
     if (mm && mm('(prefers-reduced-motion: reduce)').matches) {
-      el.style.scrollBehavior = 'smooth';
+      el.style.scrollBehavior = 'auto';
       return;
     }
     const isCoarse = !!(mm && mm('(hover: none) and (pointer: coarse)').matches);
     if (isCoarse) {
-      el.style.scrollBehavior = 'smooth';
+      el.style.scrollBehavior = 'auto';
       return;
     }
+    // Efeito suave com velocidade proporcional à força (deltaY).
+    // Quanto mais forte o gesto na roda, maior o delta → target mais longe → rolagem mais rápida.
+    // Quanto mais leve, menor o delta → rolagem lenta e precisa. Trackpad usa nativo.
     let target = el.scrollTop;
     let current = target;
     let raf = null;
     const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
     const animate = () => {
       const diff = target - current;
-      if (Math.abs(diff) < 0.3) {
+      if (Math.abs(diff) < 0.5) {
         current = target;
         el.scrollTop = current;
         raf = null;
         return;
       }
-      // 0.08 = mais inércia/fluidez que 0.14 (suaviza sem travar)
-      current += diff * 0.08;
+      // Leve = suave (0.11), forte = agressivo (0.19) — adaptativo pelo diff
+      const factor = Math.abs(diff) < 70 ? 0.11 : 0.19;
+      current += diff * factor;
       el.scrollTop = current;
       raf = requestAnimationFrame(animate);
     };
@@ -261,7 +266,8 @@ export class UI {
         if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
         const max = el.scrollHeight - el.clientHeight;
         if (max <= 0) return;
-        const isTrackpad = Math.abs(e.deltaY) < 24 && e.deltaMode === 0;
+        // Trackpad: delta pequeno (<18) → deixa nativo (já é suave e proporcional)
+        const isTrackpad = Math.abs(e.deltaY) < 18 && e.deltaMode === 0;
         if (isTrackpad) return;
         const atTop = el.scrollTop <= 0 && e.deltaY < 0;
         const atBottom = el.scrollTop >= max - 1 && e.deltaY > 0;
@@ -270,9 +276,11 @@ export class UI {
         let delta = e.deltaY;
         if (e.deltaMode === 1) delta *= 16;
         else if (e.deltaMode === 2) delta *= el.clientHeight;
-        // 120px max por tick = menos salto que 180, mais sedoso
-        delta = clamp(delta, -120, 120);
+        // Agressivo no forte: clamp 320 + amplificação 1.45x acima de 80
+        if (Math.abs(delta) > 80) delta *= 1.45;
+        delta = clamp(delta, -320, 320);
         target = clamp(target + delta, 0, max);
+        el.style.scrollBehavior = 'auto';
         if (!raf) {
           current = el.scrollTop;
           raf = requestAnimationFrame(animate);
@@ -281,7 +289,7 @@ export class UI {
       { passive: false }
     );
     el.addEventListener('pointerdown', syncFromUser);
-    el.style.scrollBehavior = 'smooth';
+    el.style.scrollBehavior = 'auto';
   }
 
   _setupTeclado() {
